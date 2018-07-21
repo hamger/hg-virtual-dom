@@ -1,4 +1,5 @@
 import hgVdom from '../src'
+// import hgVdom from '../dist'
 
 var h = hgVdom.h
 var diff = hgVdom.diff

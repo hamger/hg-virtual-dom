@@ -6,7 +6,9 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'index.js',
-    path: path.resolve(__dirname, '../dist')
+    path: path.resolve(__dirname, '../dist'),
+    library: 'hg-virtual-dom',
+    libraryTarget: 'umd'
   },
   resolve: {
     extensions: [".jsx", ".json", ".js"],
