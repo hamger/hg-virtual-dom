@@ -4,20 +4,13 @@
  * @param {String} key 键名称
  * @return {Object} {children: [], moves: [] }
  * children 表示从 oldList 到 newList 保留下来的原始列表的数据，
- * 比如 oldList = [{id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}];
+ * 比如 oldList = [{id: 1}, {id: 2}, {id: 3}, {id: 4}];
  * newList = [{id: 2}, {id: 3}, {id: 1}];
- 最后返回的 children = [
-  {id: 1},
-  {id: 2},
-  {id: 3},
-  null,
-  null
- ]
+ 最后返回的 children = [{id: 1}, {id: 2}, {id: 3}, null]
 
  moves 表示从 oldList 到 newList 所需的操作，children为null的话，依次删除掉掉，因此返回的是
  moves = [
   {type: 0, index:3},
-  {type: 0, index: 3},
   {type: 0, index: 0},
   {type: 1, index: 2, item: {id: 1}}
  ]
@@ -74,7 +67,7 @@ function listDiff (oldList, newList, key) {
   var j = (i = 0)
   // 从第 i 项开始遍历 newList，先和 simulateList 的第 j 项比较，如果相等的，不进行数组操作并 j++，跳到下一个内部循环，
   // 否则，先判断该键是否在 oldKeyIndex 里面，如果不存在，说明是新增项，插入，
-  // 如果存在, 判断 simulateList[j + 1] 是否与 newList[i] 相等，
+  // 如果存在, 判断 simulateList[j + 1] 与 newList[i] 的 key 是否相等，
   // 若相等，移除 simulateList[j]; 若不相等，插入
   while (i < newList.length) {
     item = newList[i]
