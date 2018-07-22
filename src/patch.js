@@ -1,9 +1,9 @@
 import _ from './util'
 
-var REPLACE = 0
-var REORDER = 1
-var PROPS = 2
-var TEXT = 3
+patch.REPLACE = 0 // 替换元素
+patch.REORDER = 1 // 列表排序
+patch.PROPS = 2 // 变更属性
+patch.TEXT = 3 // 变更文本
 
 function patch (node, patches) {
   var walker = { index: 0 }
@@ -28,20 +28,20 @@ function dfsWalk (node, walker, patches) {
 function applyPatches (node, currentPatches) {
   _.each(currentPatches, function (currentPatch) {
     switch (currentPatch.type) {
-      case REPLACE:
+      case 0:
         var newNode =
           typeof currentPatch.node === 'string' ?
             document.createTextNode(currentPatch.node) :
             currentPatch.node.render()
         node.parentNode.replaceChild(newNode, node)
         break
-      case REORDER:
+      case 1:
         reorderChildren(node, currentPatch.moves)
         break
-      case PROPS:
+      case 2:
         setProps(node, currentPatch.props)
         break
-      case TEXT:
+      case 3:
         if (node.textContent) node.textContent = currentPatch.content
         else node.nodeValue = currentPatch.content
         break
@@ -97,10 +97,5 @@ function reorderChildren (node, moves) {
     }
   })
 }
-
-patch.REPLACE = REPLACE
-patch.REORDER = REORDER
-patch.PROPS = PROPS
-patch.TEXT = TEXT
 
 export default patch

@@ -11,15 +11,15 @@ class VNode {
       this.key = props && props.key
     }
 
-    var _eid = 0
-
-    this.children.forEach((child, index) => {
-      if (child instanceof VNode) _eid += child._eid
-      else this.children[index] = String(child)
-      _eid++
+    // 记录该节点下有多少个子节点
+    let _count = 0
+    this.children.forEach(child => {
+      // 如果子节点是 VNode 实例，记录它拥有的子节点数目
+      if (child instanceof VNode) _count += child._count
+      // child 本身是一个子节点，所以还需要 +1
+      _count++
     })
-
-    this._eid = _eid
+    this._count = _count
   }
 
   render () {
