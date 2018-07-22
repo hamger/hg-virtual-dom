@@ -19,16 +19,16 @@ function renderTree () {
   ])
 }
 var tree = renderTree()
-console.log(tree)
+// console.log(tree)
 var root = tree.render()
-console.log(root)
+// console.log(root)
 document.body.appendChild(root)
 var timerCount = 0
 var timer = setInterval(function () {
   if (timerCount < 7) {
     var newTree = renderTree()
     var patches = diff(tree, newTree)
-    console.log(patches)
+    // console.log(patches)
     patch(root, patches)
     tree = newTree
     timerCount++

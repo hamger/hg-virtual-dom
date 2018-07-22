@@ -9,9 +9,6 @@
     "build": "webpack --config build/webpack.prod.conf.js",
     "start": "npm run dev"
   },
-  "dependencies": {
-    "list-diff2": "^0.1.4"
-  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",

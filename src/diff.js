@@ -1,5 +1,5 @@
 import patch from './patch'
-import listDiff from 'list-diff2'
+import listDiff from './list-diff'
 import _ from './util'
 
 function diff (oldTree, newTree) {
@@ -65,12 +65,17 @@ function diffChildren (oldChildren, newChildren, index, patches, currentPatch) {
   var currentNodeIndex = index
   oldChildren.forEach((child, i) => {
     var newChild = newChildren[i]
+    // 计算当前节点标记
     currentNodeIndex =
       leftNode && leftNode._eid ?
         currentNodeIndex + leftNode._eid + 1 :
         currentNodeIndex + 1
+    // 深度遍历子节点
     dfsWalk(child, newChild, currentNodeIndex, patches)
+    // 缓存左边的节点
     leftNode = child
+    console.log(currentNodeIndex)
+    console.log(leftNode._eid)
   })
 }
 

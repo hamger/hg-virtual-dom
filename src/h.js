@@ -21,6 +21,7 @@ class Element {
 
     this._eid = _eid
   }
+
   render () {
     let el = document.createElement(this.tagName)
     let props = this.props
