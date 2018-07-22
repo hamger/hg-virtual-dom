@@ -4,13 +4,12 @@
  * @param {String} key 键名称
  * @return {Object} {children: [], moves: [] }
  * children 表示从 oldList 到 newList 保留下来的原始列表的数据，
- * 比如 oldList = [{id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}, {id: 6}];
+ * 比如 oldList = [{id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}];
  * newList = [{id: 2}, {id: 3}, {id: 1}];
  最后返回的 children = [
   {id: 1},
   {id: 2},
   {id: 3},
-  null,
   null,
   null
  ]
@@ -18,7 +17,6 @@
  moves 表示从 oldList 到 newList 所需的操作，children为null的话，依次删除掉掉，因此返回的是
  moves = [
   {type: 0, index:3},
-  {type: 0, index: 3},
   {type: 0, index: 3},
   {type: 0, index: 0},
   {type: 1, index: 2, item: {id: 1}}
@@ -140,6 +138,10 @@ function listDiff (oldList, newList, key) {
  * 列表转化为 {key: Index} 对象
  * @param {Array} list
  * @param {String|Function} key
+ * 比如
+  var list = [{ key: 'id1' }, { key: 'id2' }, { key: 'id3' }, { key: 'id4' }]
+  var map = makeKeyIndexAndFree(list, 'key')
+  console.log(map) // {keyIndex: {id1: 0, id2: 1, id3: 2, id4: 3}, free: []}
 */
 function makeKeyIndexAndFree (list, key) {
   var keyIndex = {}
@@ -167,9 +169,5 @@ function getItemKey (item, key) {
   }
   return typeof key === 'string' ? item[key] : key[item]
 }
-
-var list = [{ key: 'id1' }, { key: 'id2' }, { key: 'id3' }, { key: 'id4' }]
-var map = makeKeyIndexAndFree(list, 'key')
-console.log(map) // {keyIndex: {id1: 0, id2: 1, id3: 2, id4: 3}, free: []}
 
 export default listDiff
