@@ -5,7 +5,7 @@ module.exports = {
   target: 'web',
   entry: './src/index.js',
   output: {
-    filename: 'index.js',
+    filename: 'hg-virtual-dom.js',
     path: path.resolve(__dirname, '../dist'),
     library: 'hg-virtual-dom',
     libraryTarget: 'umd'

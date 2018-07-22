@@ -1,5 +1,5 @@
 import hgVdom from '../src'
-// import hgVdom from '../dist'
+// import hgVdom from '../dist/hg-virtual-dom.js'
 
 var h = hgVdom.h
 var diff = hgVdom.diff

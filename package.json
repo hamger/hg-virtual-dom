@@ -1,13 +1,26 @@
 {
   "name": "hg-virtual-dom",
-  "description": "A package project",
-  "version": "0.1.0",
-  "author": "hamger <2313303800@qq.com>",
+  "description": "A simple virtual-dom",
+  "version": "0.1.1",
+  "author": "Hanger <2313303800@qq.com>",
   "license": "MIT",
   "scripts": {
     "dev": "webpack-dev-server --hot --config build/webpack.dev.conf.js",
     "build": "webpack --config build/webpack.prod.conf.js",
     "start": "npm run dev"
+  },
+  "main": "dist/hg-virtual-dom.js",
+  "keywords": [
+    "hanger",
+    "virtual-dom"
+  ],
+  "homepage": "https://github.com/hamger/hg-virtual-dom",
+  "bugs": {
+    "url": "https://github.com/hamger/hg-virtual-dom/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hamger/hg-virtual-dom.git"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
