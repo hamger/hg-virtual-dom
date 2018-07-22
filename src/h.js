@@ -1,4 +1,4 @@
-class Element {
+class VNode {
   constructor (tagName, props, children) {
     this.tagName = tagName
     if (Array.isArray(props)) {
@@ -14,7 +14,7 @@ class Element {
     var _eid = 0
 
     this.children.forEach((child, index) => {
-      if (child instanceof Element) _eid += child._eid
+      if (child instanceof VNode) _eid += child._eid
       else this.children[index] = String(child)
       _eid++
     })
@@ -30,7 +30,7 @@ class Element {
     }
     this.children.map(child => {
       let childEl =
-        child instanceof Element ?
+        child instanceof VNode ?
           child.render() :
           document.createTextNode(child)
       el.appendChild(childEl)
@@ -39,4 +39,4 @@ class Element {
   }
 }
 export default (tagName, props, children) =>
-  new Element(tagName, props, children)
+  new VNode(tagName, props, children)

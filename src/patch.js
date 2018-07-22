@@ -53,8 +53,7 @@ function applyPatches (node, currentPatches) {
 
 function setProps (node, props) {
   for (var key in props) {
-    // void后跟一个表达式，立即执行该表达式，并统一返回undefined
-    if (props[key] === void 0) {
+    if (props[key] === undefined) {
       node.removeAttribute(key)
     } else {
       var value = props[key]
