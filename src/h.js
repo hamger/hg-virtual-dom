@@ -26,17 +26,27 @@ class VNode {
     let el = document.createElement(this.tagName)
     let props = this.props
     for (let attrName in props) {
-      el.setAttribute(attrName, props[attrName])
+      if (isEventProp) {
+        el.addEventListener(extractEventName(attrName), props[attrName])
+      } else {
+        el.setAttribute(attrName, props[attrName])
+      }
     }
     this.children.map(child => {
       let childEl =
-        child instanceof VNode ?
-          child.render() :
-          document.createTextNode(child)
+        child instanceof VNode ? child.render() : document.createTextNode(child)
       el.appendChild(childEl)
     })
     return el
   }
 }
-export default (tagName, props, children) =>
-  new VNode(tagName, props, children)
+
+function isEventProp (name) {
+  return /^on/.test(name)
+}
+
+function extractEventName (name) {
+  return name.slice(2).toLowerCase()
+}
+
+export default (tagName, props, children) => new VNode(tagName, props, children)

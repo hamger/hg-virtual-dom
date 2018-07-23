@@ -56,6 +56,9 @@ var patches = diff(root, newRoot)
 ```
 
 ## Changelog
+### 2018.7.23
+> v0.1.2 实现事件监听
+
 ### 2018.7.22
 > v0.1.1 实现 list-diff
 
