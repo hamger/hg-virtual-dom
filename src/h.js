@@ -26,7 +26,7 @@ class VNode {
     let el = document.createElement(this.tagName)
     let props = this.props
     for (let attrName in props) {
-      if (isEventProp) {
+      if (isEventProp(attrName)) {
         el.addEventListener(extractEventName(attrName), props[attrName])
       } else {
         el.setAttribute(attrName, props[attrName])
