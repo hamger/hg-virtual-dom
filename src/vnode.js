@@ -1,4 +1,4 @@
-import {isVNode} from './util'
+import _ from './util'
 
 function VirtualNode (tagName, properties, children, key) {
   this.tagName = tagName
@@ -11,7 +11,7 @@ function VirtualNode (tagName, properties, children, key) {
 
   for (var i = 0; i < count; i++) {
     var child = children[i]
-    if (isVNode(child)) {
+    if (_.isVNode(child)) {
       descendants += child.count || 0
     }
   }

@@ -1,9 +1,7 @@
 import hgVdom from '../src'
 // import hgVdom from '../dist/hg-virtual-dom.js'
+var { h, diff, patch, create, VNode, VText } = hgVdom
 
-var h = hgVdom.h
-var diff = hgVdom.diff
-var patch = hgVdom.patch
 var count = 0
 function renderTree () {
   count++
@@ -38,3 +36,9 @@ var timer = setInterval(function () {
     clearInterval(timer)
   }
 }, 1000)
+
+var vtext = new VText('Hello, World!')
+// Pass our VText as a child of our VNode
+var vnode = new VNode('div', { id: 'my-node' }, [vtext])
+var el = create(vnode)
+document.body.appendChild(el)

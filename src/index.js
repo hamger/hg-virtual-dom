@@ -3,7 +3,7 @@ import diff from './diff'
 import patch from './patch'
 import VNode from './vnode'
 import VText from './vtext'
-// import create from './create'
+import create from './create'
 
 export default {
   h,
@@ -11,5 +11,5 @@ export default {
   patch,
   VNode,
   VText,
-  // create
+  create
 }
