@@ -91,7 +91,7 @@ function render(data) {
 
 ### 2018.7.24
 
-> v0.1.3 添加 VNode、VText 和 create 方法
+> v0.1.4 添加 VNode、VText 和 create 方法
 
 ### 2018.7.23
 
