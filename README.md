@@ -60,14 +60,12 @@ var patches = diff(root, newRoot);
 
 ```js
 import hgVdom from "hg-virtual-dom";
-var { VNode, VText, ceate } = hgVdom;
+var { VNode, VText, create } = hgVdom;
 
 function render(data) {
   var vTree = new VNode(
     "div",
-    {
-      className: "greeting"
-    },
+    { className: "greeting" },
     [new VText("Hello " + String(data.name))]
   );
 
