@@ -1,3 +1,4 @@
+import _ from './util'
 class VNode {
   constructor (tagName, props, children) {
     this.tagName = tagName
@@ -26,11 +27,7 @@ class VNode {
     let el = document.createElement(this.tagName)
     let props = this.props
     for (let attrName in props) {
-      if (isEventProp(attrName)) {
-        el.addEventListener(extractEventName(attrName), props[attrName])
-      } else {
-        el.setAttribute(attrName, props[attrName])
-      }
+      _.setAttr(el, attrName, props[attrName])
     }
     this.children.map(child => {
       let childEl =
@@ -39,14 +36,6 @@ class VNode {
     })
     return el
   }
-}
-
-function isEventProp (name) {
-  return /^on/.test(name)
-}
-
-function extractEventName (name) {
-  return name.slice(2).toLowerCase()
 }
 
 export default (tagName, props, children) => new VNode(tagName, props, children)
