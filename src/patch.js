@@ -1,4 +1,6 @@
 import _ from './util'
+import { VNode } from './h'
+import create from './create'
 
 patch.REPLACE = 0 // 替换元素
 patch.REORDER = 1 // 列表排序
@@ -8,6 +10,7 @@ patch.TEXT = 3 // 变更文本
 function patch (node, patches) {
   var walker = { index: 0 }
   dfsWalk(node, walker, patches)
+  return node
 }
 
 function dfsWalk (node, walker, patches) {
@@ -30,9 +33,9 @@ function applyPatches (node, currentPatches) {
     switch (currentPatch.type) {
       case 0:
         var newNode =
-          typeof currentPatch.node === 'string' ?
-            document.createTextNode(currentPatch.node) :
-            currentPatch.node.render()
+          currentPatch.node instanceof VNode ?
+            create(currentPatch.node) :
+            document.createTextNode(currentPatch.node)
         node.parentNode.replaceChild(newNode, node)
         break
       case 1:
@@ -53,12 +56,8 @@ function applyPatches (node, currentPatches) {
 
 function setProps (node, props) {
   for (var key in props) {
-    if (props[key] === undefined) {
-      node.removeAttribute(key)
-    } else {
-      var value = props[key]
-      _.setAttr(node, key, value)
-    }
+    var value = props[key]
+    _.setAttr(node, key, value)
   }
 }
 
@@ -89,8 +88,8 @@ function reorderChildren (node, moves) {
       // insert item
       var insertNode = maps[move.item.key] ?
         maps[move.item.key].cloneNode(true) : // reuse old item
-        typeof move.item === 'object' ?
-          move.item.render() :
+        move.item instanceof VNode ?
+          create(move.item) :
           document.createTextNode(move.item)
       staticNodeList.splice(index, 0, insertNode)
       node.insertBefore(insertNode, node.childNodes[index] || null)

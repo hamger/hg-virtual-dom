@@ -6,7 +6,7 @@ A simple virtual-dom
 
 ```js
 import hgVdom from "hg-virtual-dom";
-var { h, diff, patch } = hgVdom;
+var { h, diff, patch, create } = hgVdom;
 
 // 1. use `h(tagName, [propeties], children)` to create a virtual dom tree
 var tree = h("div", { id: "container" }, [
@@ -16,7 +16,7 @@ var tree = h("div", { id: "container" }, [
 ]);
 
 // 2. generate a real dom from virtual dom. `root` is a `div` element
-var root = tree.render();
+var root = create(tree);
 
 // 3. generate another different virtual dom tree
 var newTree = h("div", { id: "container" }, [
@@ -56,36 +56,11 @@ var newRoot = h("ul", [
 var patches = diff(root, newRoot);
 ```
 
-## Example - creating a Element using the objects directly
-
-```js
-import hgVdom from "hg-virtual-dom";
-var { VNode, VText, create } = hgVdom;
-
-function render(data) {
-  var vTree = new VNode(
-    "div",
-    { className: "greeting" },
-    [new VText("Hello " + String(data.name))]
-  );
-
-  return create(VNode);
-}
-```
-
-## Example - creating a Element using virtual-hyperscript
-
-```js
-import hgVdom from "hg-virtual-dom";
-var { h } = hgVdom;
-
-function render(data) {
-  var vTree = h(".greeting", ["Hello " + data.name]);
-  return vNode.render();
-}
-```
-
 ## Changelog
+
+### 2018.8.7
+
+> v0.2.0 修复设置类名前没有清零导致的类名更新错误；修复 addEventListener 导致事件监听累积添加的问题；删除 VNode、VText 方法；删除 VNode 实例中的 render 方法，改用 create 方法代替 
 
 ### 2018.7.24
 

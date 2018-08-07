@@ -3,7 +3,7 @@ var webpack = require('webpack')
 const path = require('path')
 
 module.exports = {
-  entry: './demo/index.js',
+  entry: './example/index.js',
   output: './dist/',
   devtool: "eval-source-map",
   resolve: {
@@ -33,7 +33,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'demo/index.html',
+      template: 'example/index.html',
       inject: true
     })
   ]

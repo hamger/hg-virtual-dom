@@ -1,23 +1,18 @@
 import _ from './util'
+import { VNode } from './h'
 
 function create (vnode) {
-  let doc = document
-  if (_.isVText(vnode)) return doc.createTextNode(vnode.text)
-  else if (!_.isVNode(vnode)) throw Error(vnode + ' is not a valid virtual dom node')
-
-  let node = doc.createElement(vnode.tagName)
+  let el = document.createElement(vnode.tagName)
   let props = vnode.properties
-  for (let key in props) {
-    _.setAttr(node, key, props[key])
+  for (let attrName in props) {
+    _.setAttr(el, attrName, props[attrName])
   }
-
-  let children = vnode.children
-  for (let i = 0; i < children.length; i++) {
-    let childNode = create(children[i])
-    if (childNode) node.appendChild(childNode)
-  }
-
-  return node
+  vnode.children.map(child => {
+    let childEl =
+      child instanceof VNode ? create(child) : document.createTextNode(child)
+    if (childEl) el.appendChild(childEl)
+  })
+  return el
 }
 
 export default create
