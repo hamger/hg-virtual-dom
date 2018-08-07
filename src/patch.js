@@ -1,6 +1,6 @@
 import {toArray, each} from './util'
 import setAttr from './setAttr'
-import { VNode } from './h'
+import VNode from './vnode'
 import create from './create'
 
 patch.REPLACE = 0 // 替换元素

@@ -1,5 +1,5 @@
 import setAttr from './setAttr'
-import { VNode } from './h'
+import VNode from './vnode'
 
 function create (vnode) {
   let el = document.createElement(vnode.tagName)

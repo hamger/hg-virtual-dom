@@ -1,24 +1,5 @@
 import {isArray, isPrimitive} from './util'
-
-class VNode {
-  constructor (tagName, properties, children) {
-    this.tagName = tagName
-    this.properties = properties || {}
-    this.children = children || []
-    this.key = properties && properties.key
-
-    // 记录该节点下有多少个子节点
-    let count = 0
-    this.children.forEach(child => {
-      // 如果子节点是 VNode 实例，记录它拥有的子节点数目
-      if (child instanceof VNode) count += child.count
-      // child 本身是一个子节点，所以还需要 +1
-      count++
-    })
-    this.count = count
-  }
-}
-export { VNode }
+import VNode from './vnode'
 
 function h (tagName, properties, children) {
   let childNodes = [] // 用于存放所有的子节点
