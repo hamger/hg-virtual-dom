@@ -1,6 +1,6 @@
 import patch from './patch'
 import listDiff from './list-diff'
-import _ from './util'
+import { isString } from './util'
 
 function diff (oldTree, newTree) {
   var index = 0
@@ -16,7 +16,7 @@ function dfsWalk (oldNode, newNode, index, patches) {
   if (newNode === null) {
     // Real DOM node will be removed when perform reordering, so has no needs to do anthings in here
     // TextNode content replacing
-  } else if (_.isString(oldNode) && _.isString(newNode)) {
+  } else if (isString(oldNode) && isString(newNode)) {
     if (newNode !== oldNode) {
       currentPatch.push({ type: patch.TEXT, content: newNode })
     }

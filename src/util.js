@@ -1,32 +1,26 @@
-let _ = {}
-
-_.type = obj => {
+export const type = obj => {
   return Object.prototype.toString.call(obj).replace(/\[object\s|\]/g, '')
 }
 
-_.isArray = list => {
-  return _.type(list) === 'Array'
+export const isArray = list => {
+  return type(list) === 'Array'
 }
 
-_.slice = (arrayLike, index) => {
-  return Array.prototype.slice.call(arrayLike, index)
+export const isString = list => {
+  return type(list) === 'String'
 }
 
-_.isString = list => {
-  return _.type(list) === 'String'
+export const isPrimitive = list => {
+  return type(list) === 'String' || type(list) === 'Number'
 }
 
-_.isPrimitive = list => {
-  return _.type(list) === 'String' || _.type(list) === 'Number'
-}
-
-_.each = (array, fn) => {
+export const each = (array, fn) => {
   for (var i = 0, len = array.length; i < len; i++) {
     fn(array[i], i)
   }
 }
 
-_.toArray = listLike => {
+export const toArray = listLike => {
   if (!listLike) return []
   var list = []
   for (var i = 0, len = listLike.length; i < len; i++) {
@@ -34,5 +28,3 @@ _.toArray = listLike => {
   }
   return list
 }
-
-export default _

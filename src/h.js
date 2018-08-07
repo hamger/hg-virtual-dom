@@ -1,4 +1,4 @@
-import _ from './util'
+import {isArray, isPrimitive} from './util'
 
 class VNode {
   constructor (tagName, properties, children) {
@@ -26,7 +26,7 @@ function h (tagName, properties, children) {
   let props, childs
 
   // 如果 properties 是数组，则默认是 children
-  if (_.isArray(properties)) {
+  if (isArray(properties)) {
     props = {}
     childs = properties
   } else {
@@ -42,11 +42,11 @@ function h (tagName, properties, children) {
 }
 
 function addChild (c, childNodes, tag, props) {
-  if (_.isPrimitive(c)) {
+  if (isPrimitive(c)) {
     childNodes.push(String(c))
   } else if (c instanceof VNode) {
     childNodes.push(c)
-  } else if (_.isArray(c)) {
+  } else if (isArray(c)) {
     for (var i = 0; i < c.length; i++) {
       addChild(c[i], childNodes, tag, props)
     }
