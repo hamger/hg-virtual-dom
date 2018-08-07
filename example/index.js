@@ -1,10 +1,6 @@
-import hgVdom from '../src'
+import { h, diff, patch, create } from '../src'
 // import hgVdom from '../dist/hg-virtual-dom.js'
-var { h, diff, patch, create } = hgVdom
-
-function eve (i) {
-  console.log(i)
-}
+// var { h, diff, patch, create } = hgVdom
 
 var count = 0
 function renderTree () {
@@ -16,7 +12,9 @@ function renderTree () {
       h(
         'li',
         {
-          onclick: eve.bind(this, i)
+          onclick: (i => {
+            console.log(i)
+          }).bind(this, i)
         },
         [`Item #${i}`]
       )
@@ -33,41 +31,15 @@ console.log(tree)
 var root = create(tree)
 document.body.appendChild(root)
 
-// var timerCount = 0
-// var timer = setInterval(function () {
-//   if (timerCount < 5) {
-//     var newTree = renderTree()
-//     var patches = diff(tree, newTree)
-//     // console.log(patches)
-//     patch(root, patches)
-//     tree = newTree
-//     timerCount++
-//   } else {
-//     clearInterval(timer)
-//   }
-// }, 1000)
-
-var newTree = h('div', { id: 'container' }, [
-  h('h1', { style: `color: blue` }, ['simple virtal dom']),
-  h('p', [`the count is : 8`]),
-  h('ul', [
-    h(
-      'li',
-      {
-        onclick: eve.bind(this, 8)
-      },
-      [`Item #${8}`]
-    ),
-    h(
-      'li',
-      {
-        onclick: eve.bind(this, 9)
-      },
-      [`Item #${9}`]
-    )
-  ])
-])
-
-var patches = diff(tree, newTree)
-// console.log(patches)
-patch(root, patches)
+var timerCount = 0
+var timer = setInterval(function () {
+  if (timerCount < 5) {
+    var newTree = renderTree()
+    var patches = diff(tree, newTree)
+    patch(root, patches)
+    tree = newTree
+    timerCount++
+  } else {
+    clearInterval(timer)
+  }
+}, 1000)

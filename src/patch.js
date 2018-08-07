@@ -1,4 +1,5 @@
 import _ from './util'
+import setAttr from './setAttr'
 import { VNode } from './h'
 import create from './create'
 
@@ -57,7 +58,7 @@ function applyPatches (node, currentPatches) {
 function setProps (node, props) {
   for (var key in props) {
     var value = props[key]
-    _.setAttr(node, key, value)
+    setAttr(node, key, value)
   }
 }
 

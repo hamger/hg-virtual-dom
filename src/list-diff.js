@@ -2,7 +2,7 @@
  * @param {Array} oldList   原始列表
  * @param {Array} newList   新列表
  * @param {String} key 键名称
- * @return {Object} {children: [], moves: [] }
+ * @return {Object} {children: [], moves: []}
  * children 表示从 oldList 到 newList 保留下来的原始列表的数据，
  * 比如 oldList = [{id: 1}, {id: 2}, {id: 3}, {id: 4}];
  * newList = [{id: 2}, {id: 3}, {id: 1}];
