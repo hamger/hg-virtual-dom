@@ -1,6 +1,5 @@
 import { h, diff, patch, create } from '../src'
-// import hgVdom from '../dist/hg-virtual-dom.js'
-// var { h, diff, patch, create } = hgVdom
+// import { h, diff, patch, create } from '../dist/hg-virtual-dom.js'
 
 var count = 0
 function renderTree () {
