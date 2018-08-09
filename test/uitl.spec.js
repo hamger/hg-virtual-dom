@@ -1,4 +1,4 @@
-import { isString, isArray, isPrimitive, toArray, each } from '../src/util'
+import { isString, isObject, isArray, isPrimitive, toArray, each } from '../src/util'
 
 describe('util', () => {
   it('isString() should work fine.', () => {
@@ -6,6 +6,11 @@ describe('util', () => {
     expect(isString(123)).toBe(false)
   })
 
+  it('isObject() should work fine.', () => {
+    expect(isObject({})).toBe(true)
+    expect(isObject(' ')).toBe(false)
+  })
+  
   it('isArray() should work fine.', () => {
     expect(isArray([])).toBe(true)
     expect(isArray(' ')).toBe(false)

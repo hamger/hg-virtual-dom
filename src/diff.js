@@ -11,27 +11,28 @@ var patchType = {
 
 function diff (oldTree, newTree) {
   var index = 0
+  // 将两棵树所有的差异存放在 patches
   var patches = {}
-  dfsWalk(oldTree, newTree, index, patches)
+  walk(oldTree, newTree, index, patches)
   return patches
 }
 
-function dfsWalk (oldNode, newNode, index, patches) {
+function walk (oldNode, newNode, index, patches) {
   var currentPatch = []
 
-  // Node is removed.
   if (newNode === null) {
+    // Node is removed.
     // Real DOM node will be removed when perform reordering, so has no needs to do anthings in here
-    // TextNode content replacing
   } else if (isString(oldNode) && isString(newNode)) {
+    // TextNode content replacing
     if (newNode !== oldNode) {
-      currentPatch.push({ type: patchType.TEXT, content: newNode })
+      currentPatch.push({ type: patchType.TEXT, text: newNode })
     }
-    // Nodes are the same, diff old node's props and children
   } else if (
     oldNode.tagName === newNode.tagName &&
     oldNode.key === newNode.key
   ) {
+    // Nodes are the same, diff old node's props and children
     // Diff props
     var propsPatches = diffProps(oldNode, newNode)
     if (propsPatches) {
@@ -78,7 +79,7 @@ function diffChildren (oldChildren, newChildren, index, patches, currentPatch) {
         currentNodeIndex + leftNode.count + 1 :
         currentNodeIndex + 1
     // 深度遍历子节点
-    dfsWalk(child, newChild, currentNodeIndex, patches)
+    walk(child, newChild, currentNodeIndex, patches)
     // 更新左边的节点
     leftNode = child
   })

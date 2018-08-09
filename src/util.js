@@ -1,17 +1,21 @@
-export const type = obj => {
-  return Object.prototype.toString.call(obj).replace(/\[object\s|\]/g, '')
+export const type = arg => {
+  return Object.prototype.toString.call(arg).replace(/\[object\s|\]/g, '')
 }
 
-export const isArray = list => {
-  return type(list) === 'Array'
+export const isObject = arg => {
+  return type(arg) === 'Object'
 }
 
-export const isString = list => {
-  return type(list) === 'String'
+export const isArray = arg => {
+  return type(arg) === 'Array'
 }
 
-export const isPrimitive = list => {
-  return type(list) === 'String' || type(list) === 'Number'
+export const isString = arg => {
+  return type(arg) === 'String'
+}
+
+export const isPrimitive = arg => {
+  return type(arg) === 'String' || type(arg) === 'Number'
 }
 
 export const each = (array, fn) => {

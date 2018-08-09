@@ -28,17 +28,27 @@ function renderTree () {
 var tree = renderTree()
 console.log(tree)
 var root = create(tree)
+console.log([root])
 document.body.appendChild(root)
 
-var timerCount = 0
-var timer = setInterval(function () {
-  if (timerCount < 5) {
-    var newTree = renderTree()
-    var patches = diff(tree, newTree)
-    patch(root, patches)
-    tree = newTree
-    timerCount++
-  } else {
-    clearInterval(timer)
-  }
-}, 1000)
+// var timerCount = 0
+// var timer = setInterval(function () {
+//   if (timerCount < 5) {
+//     var newTree = renderTree()
+//     var patches = diff(tree, newTree)
+//     patch(root, patches)
+//     tree = newTree
+//     timerCount++
+//   } else {
+//     clearInterval(timer)
+//   }
+// }, 1000)
+
+var newTree = h('div', { id: 'container2' }, [
+  h('h1', { style: `color: green` }, [h('span', ['dom'])]),
+  h('p', ['the count is : 0'])
+])
+
+var patches = diff(tree, newTree)
+console.log(patches)
+patch(root, patches)

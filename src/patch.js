@@ -54,7 +54,7 @@ function applyPatches (node, currentPatches) {
         break
       // 变更文本
       case 3:
-        if (node.textContent) node.textContent = currentPatch.content
+        if (node.textContent) node.textContent = currentPatch.text
         else node.nodeValue = currentPatch.content
         break
       default:

@@ -1,11 +1,17 @@
 
-import { isPrimitive } from './util'
+import { isPrimitive, isObject } from './util'
 
 export default function setAttr (node, key, value) {
   if (value === undefined) {
     removeProperty(node, key, value)
   } else if (key === 'style') {
-    node.style.cssText = value
+    if (isObject(value)) {
+      for (let name in value) {
+        node.style[name] = value[name]
+      }
+    } else {
+      node.style.cssText = value
+    }
   } else if (key === 'value') {
     var tagName = node.tagName || ''
     tagName = tagName.toUpperCase()
@@ -29,6 +35,7 @@ export default function setAttr (node, key, value) {
   }
 }
 
+// 置空类名
 function emptyClass (node) {
   var arr = []
   for (var i = 0; i < node.classList.length; i++) {
@@ -39,26 +46,22 @@ function emptyClass (node) {
   })
 }
 
+// 属性是否为类
 function isClassName (name) {
   return /^(className|class)$/.test(name)
 }
-
+// 属性是否为事件
 function isEventProp (name) {
   return /^on[A-Za-z]/.test(name)
 }
 
+// 移除属性
 function removeProperty (node, propName, propValue) {
   if (isClassName(propName)) {
     node.removeAttribute('class')
   } else if (!isEventProp(propName)) {
-    if (propName === 'attributes') {
-      for (var attrName in propValue) {
-        node.removeAttribute(attrName)
-      }
-    } else if (propName === 'style') {
-      for (var i in propValue) {
-        node.style[i] = ''
-      }
+    if (propName === 'style') {
+      node.removeAttribute('style')
     } else if (isPrimitive(propValue)) {
       node[propName] = ''
     } else {

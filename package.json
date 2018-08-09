@@ -1,7 +1,7 @@
 {
   "name": "hg-virtual-dom",
   "description": "A simple virtual-dom",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "Hanger <2313303800@qq.com>",
   "license": "MIT",
   "scripts": {
