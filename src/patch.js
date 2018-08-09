@@ -57,8 +57,6 @@ function applyPatches (node, currentPatches) {
         if (node.textContent) node.textContent = currentPatch.text
         else node.nodeValue = currentPatch.content
         break
-      default:
-        throw new Error('Unknown patch type ' + currentPatch.type)
     }
   })
 }
