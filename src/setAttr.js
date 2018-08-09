@@ -1,9 +1,8 @@
-
-import { isPrimitive, isObject } from './util'
+import { isObject } from './util'
 
 export default function setAttr (node, key, value) {
   if (value === undefined) {
-    removeProperty(node, key, value)
+    removeProperty(node, key)
   } else if (key === 'style') {
     if (isObject(value)) {
       for (let name in value) {
@@ -56,19 +55,15 @@ function isEventProp (name) {
 }
 
 // 移除属性
-function removeProperty (node, propName, propValue) {
+function removeProperty (node, propName) {
   if (isClassName(propName)) {
     node.removeAttribute('class')
+  } else if (propName === 'style') {
+    node.removeAttribute('style')
   } else if (!isEventProp(propName)) {
-    if (propName === 'style') {
-      node.removeAttribute('style')
-    } else if (isPrimitive(propValue)) {
-      node[propName] = ''
-    } else {
-      node[propName] = null
-    }
-  } else if (propValue) {
-    // 简单地置空事件监听
+    node[propName] = ''
+  } else {
+    // 置空事件
     node[propName] = null
   }
 }

@@ -8,9 +8,10 @@ function create (vnode) {
     setAttr(el, attrName, props[attrName])
   }
   vnode.children.map(child => {
+    if (!child) return
     let childEl =
       child instanceof VNode ? create(child) : document.createTextNode(child)
-    if (childEl) el.appendChild(childEl)
+    el.appendChild(childEl)
   })
   return el
 }

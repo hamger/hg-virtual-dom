@@ -16,6 +16,8 @@ describe('setAttr', function () {
   it('setAttr set calss', function () {
     setAttr(this.node, 'class', 'foo bar')
     expect(this.node.className).toBe('foo bar')
+    setAttr(this.node, 'class', 'foo')
+    expect(this.node.className).toBe('foo')
     setAttr(this.node, 'className', undefined)
     expect(this.node.className).toBe('')
   })
@@ -36,9 +38,9 @@ describe('setAttr', function () {
     this.node.click()
     // 测试spy是否调用
     expect(foo.hi).toHaveBeenCalled()
-    // setAttr(this.node, 'onclick', undefined)
-    // this.node.click()
-    // expect(foo.hi).toHaveBeenCalledTimes(1)
+    setAttr(this.node, 'onclick', undefined)
+    this.node.click()
+    expect(foo.hi).toHaveBeenCalledTimes(1)
   })
 
   it('setAttr set value', function () {

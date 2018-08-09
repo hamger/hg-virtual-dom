@@ -29,6 +29,7 @@ describe('util', () => {
       length: 3
     })
     expect(arr).toEqual(['d', 'o', 'm'])
+    expect(toArray()).toEqual([])
   })
 
   it('each() should work fine.', () => {

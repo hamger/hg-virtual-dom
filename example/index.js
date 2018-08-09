@@ -52,3 +52,9 @@ var newTree = h('div', { id: 'container2' }, [
 var patches = diff(tree, newTree)
 console.log(patches)
 patch(root, patches)
+root.onclick = function () {
+  console.log('adsf')
+}
+root.click()
+root.onclick = null
+root.click()
