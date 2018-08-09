@@ -1,16 +1,15 @@
+
+import { isPrimitive } from './util'
+
 export default function setAttr (node, key, value) {
   if (value === undefined) {
-    if (isClassName(key)) {
-      node.removeAttribute('class')
-    } else {
-      node.removeAttribute(key)
-    }
+    removeProperty(node, key, value)
   } else if (key === 'style') {
     node.style.cssText = value
   } else if (key === 'value') {
     var tagName = node.tagName || ''
-    tagName = tagName.toLowerCase()
-    if (tagName === 'input' || tagName === 'textarea') {
+    tagName = tagName.toUpperCase()
+    if (tagName === 'INPUT' || tagName === 'TEXTAREA') {
       node.value = value
     } else {
       node.setAttribute(key, value)
@@ -41,9 +40,32 @@ function emptyClass (node) {
 }
 
 function isClassName (name) {
-  return /^className$/.test(name)
+  return /^(className|class)$/.test(name)
 }
 
 function isEventProp (name) {
   return /^on[A-Za-z]/.test(name)
+}
+
+function removeProperty (node, propName, propValue) {
+  if (isClassName(propName)) {
+    node.removeAttribute('class')
+  } else if (!isEventProp(propName)) {
+    if (propName === 'attributes') {
+      for (var attrName in propValue) {
+        node.removeAttribute(attrName)
+      }
+    } else if (propName === 'style') {
+      for (var i in propValue) {
+        node.style[i] = ''
+      }
+    } else if (isPrimitive(propValue)) {
+      node[propName] = ''
+    } else {
+      node[propName] = null
+    }
+  } else if (propValue) {
+    // 简单地置空事件监听
+    node[propName] = null
+  }
 }

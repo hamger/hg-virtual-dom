@@ -1,4 +1,4 @@
-const { isString, isArray, isPrimitive, toArray } = require('../src/util')
+import { isString, isArray, isPrimitive, toArray, each } from '../src/util'
 
 describe('util', () => {
   it('isString() should work fine.', () => {

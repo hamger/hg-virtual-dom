@@ -1,4 +1,4 @@
-import {isArray, isPrimitive} from './util'
+import { isArray, isPrimitive } from './util'
 import VNode from './vnode'
 
 function h (tagName, properties, children) {
@@ -14,6 +14,9 @@ function h (tagName, properties, children) {
     props = properties || {}
     childs = children || []
   }
+
+  if (tag) tag = normalizeTag(tag)
+  props = normalizeProps(props)
 
   if (childs.length > 0) {
     addChild(childs, childNodes, tag, props)
@@ -34,6 +37,29 @@ function addChild (c, childNodes, tag, props) {
   } else {
     throw Error(`${c} is a unexpected virtual dom node`)
   }
+}
+
+// 规范化传入的标签名
+function normalizeTag (tag) {
+  return delBlank(tag.toUpperCase())
+}
+
+// 规范化传入的属性
+function normalizeProps (props) {
+  var tmp = {}
+  for (var key in props) {
+    var value = props[key]
+    if (isPrimitive(value)) {
+      tmp[key] = delBlank(String(value))
+    }
+  }
+  return tmp
+}
+
+// 去除字符串多余空格，并将内部的多个空格转化为一个空格
+function delBlank (str) {
+  var regEx = /\s+/g
+  return str.trim().replace(regEx, ' ')
 }
 
 export default h

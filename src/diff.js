@@ -1,6 +1,13 @@
-import patch from './patch'
 import listDiff from './list-diff'
 import { isString } from './util'
+
+// 补丁类型
+var patchType = {
+  REPLACE: 0, // 替换元素
+  REORDER: 1, // 列表排序
+  PROPS: 2, // 变更属性
+  TEXT: 3 // 变更文本
+}
 
 function diff (oldTree, newTree) {
   var index = 0
@@ -18,7 +25,7 @@ function dfsWalk (oldNode, newNode, index, patches) {
     // TextNode content replacing
   } else if (isString(oldNode) && isString(newNode)) {
     if (newNode !== oldNode) {
-      currentPatch.push({ type: patch.TEXT, content: newNode })
+      currentPatch.push({ type: patchType.TEXT, content: newNode })
     }
     // Nodes are the same, diff old node's props and children
   } else if (
@@ -28,7 +35,7 @@ function dfsWalk (oldNode, newNode, index, patches) {
     // Diff props
     var propsPatches = diffProps(oldNode, newNode)
     if (propsPatches) {
-      currentPatch.push({ type: patch.PROPS, props: propsPatches })
+      currentPatch.push({ type: patchType.PROPS, props: propsPatches })
     }
     // 支持手动设置 ignore 忽略 diff 子元素
     // Diff children. If the node has a `ignore` property, do not diff children
@@ -43,7 +50,7 @@ function dfsWalk (oldNode, newNode, index, patches) {
     }
     // Nodes are not the same, replace the old node with new node
   } else {
-    currentPatch.push({ type: patch.REPLACE, node: newNode })
+    currentPatch.push({ type: patchType.REPLACE, node: newNode })
   }
   // 如果存在差异，则记录在 patchs 对象中
   if (currentPatch.length) {
@@ -57,7 +64,7 @@ function diffChildren (oldChildren, newChildren, index, patches, currentPatch) {
   newChildren = diffs.children
 
   if (diffs.moves.length) {
-    var reorderPatch = { type: patch.REORDER, moves: diffs.moves }
+    var reorderPatch = { type: patchType.REORDER, moves: diffs.moves }
     currentPatch.push(reorderPatch)
   }
 
