@@ -98,8 +98,7 @@ function diffProps (oldNode, newNode) {
   for (key in oldProps) {
     // 如果原来的属性值等于现在属性值，说明不需要变更这个属性，不记录在 propPatches 中
     // 如果原来的属性值不等于现在属性值，说明需要变更这个属性，记录在 propPatches 中
-    // 如果是事件跳过比较，直接使用新的事件
-    if (isEventProp(key)) continue
+    // 如果是事件都会进入下面的判断，也就是说事件都会重新添加
     if (newProps[key] !== oldProps[key]) {
       // 此处的 newProps 有可能为 undefined ，以此来告知 patch 删除这个属性
       propsPatches[key] = newProps[key]
@@ -111,8 +110,7 @@ function diffProps (oldNode, newNode) {
   for (key in newProps) {
     // 如果旧的属性值中有新属性，前面已经遍历过了，不记录在 propPatches 中
     // 如果旧的属性值中没有新属性，说明是新增的属性，记录在 propPatches 中
-    // 如果属性是事件，记录在 propPatches 中
-    if (!oldProps.hasOwnProperty(key) || isEventProp(key)) {
+    if (!oldProps.hasOwnProperty(key)) {
       propsPatches[key] = newProps[key]
       count++
     }
@@ -122,10 +120,6 @@ function diffProps (oldNode, newNode) {
   if (count === 0) return null
 
   return propsPatches
-}
-
-function isEventProp (name) {
-  return /^on/.test(name)
 }
 
 function isIgnoreChildren (node) {
