@@ -18,7 +18,6 @@ describe('diff', function () {
         h('ul', [h('li', ['item01'])])
       ]
     )
-    console.log(oldTree.properties)
     var newTree = h(
       'div',
       {
@@ -34,7 +33,6 @@ describe('diff', function () {
       ]
     )
     var patches = diff(oldTree, newTree)
-    console.log(patches[0])
     // 补丁类型(type)：0 - 替换元素；1 - 列表排序；2 - 变更属性；3 - 变更文本
     expect(patches[0]).toEqual([
       {

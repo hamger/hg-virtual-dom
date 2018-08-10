@@ -38,17 +38,14 @@ function walk (oldNode, newNode, index, patches) {
     if (propsPatches) {
       currentPatch.push({ type: patchType.PROPS, props: propsPatches })
     }
-    // 支持手动设置 ignore 忽略 diff 子元素
-    // Diff children. If the node has a `ignore` property, do not diff children
-    if (!isIgnoreChildren(newNode)) {
-      diffChildren(
-        oldNode.children,
-        newNode.children,
-        index,
-        patches,
-        currentPatch
-      )
-    }
+    // Diff children
+    diffChildren(
+      oldNode.children,
+      newNode.children,
+      index,
+      patches,
+      currentPatch
+    )
     // Nodes are not the same, replace the old node with new node
   } else {
     currentPatch.push({ type: patchType.REPLACE, node: newNode })
@@ -61,6 +58,7 @@ function walk (oldNode, newNode, index, patches) {
 
 // compare children
 function diffChildren (oldChildren, newChildren, index, patches, currentPatch) {
+  // oldchildren 和 newchildren 为数组
   var diffs = listDiff(oldChildren, newChildren, 'key')
   newChildren = diffs.children
 
@@ -120,10 +118,6 @@ function diffProps (oldNode, newNode) {
   if (count === 0) return null
 
   return propsPatches
-}
-
-function isIgnoreChildren (node) {
-  return node.props && node.props.hasOwnProperty('ignore')
 }
 
 export default diff

@@ -1,3 +1,7 @@
+import { isPrimitive } from "./util";
+
+// import { each } from './util'
+
 /**
  * @param {Array} oldList   原始数组
  * @param {Array} newList   新数组
@@ -82,7 +86,11 @@ export default function listDiff (oldList, newList, key) {
     itemKey = getItemKey(item, key)
 
     var simulateItemKey = getItemKey(simulateList[j], key)
-    if (itemKey === simulateItemKey) {
+    // 如果是文本节点，不能用key比较，直接比较值
+    if (isPrimitive(item) && item !== simulateList[j]) {
+      insert(i, item)
+      count++
+    } else if (itemKey === simulateItemKey) {
       // 某项在源数组和新数组中位置都相同，则不进行任何操作，跳入下一个循环
       j++
     } else {
@@ -108,13 +116,11 @@ export default function listDiff (oldList, newList, key) {
       }
     }
     i++
-  }
-
-  // 如果操作后的数组长度超过期望的新数组长度，则需要移除多余的项
-  var len = newList.length
-  if (count > 0 && len <= oldList.length) {
-    for (var k = len; k < len + count; k++) {
-      remove(k)
+    // 考虑操作后的数组长度超过期望的新数组长度的情况，需要移除尾部多余的项
+    if (i === newList.length && count + oldList.length > i) {
+      for (var k = i; k < count + oldList.length; k++) {
+        remove(k)
+      }
     }
   }
 

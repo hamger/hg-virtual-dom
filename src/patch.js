@@ -14,7 +14,7 @@ function walk (node, walker, patches) {
 
   // 深度遍历子节点
   // 新的dom树中某个父节点被移除的情况，仍然需要遍历子节点，因为需要得到补丁的索引
-  var len = node.childNodes ? node.childNodes.length : 0
+  var len = node.childNodes.length
   for (var i = 0; i < len; i++) {
     var child = node.childNodes[i]
     walker.index++
@@ -54,9 +54,7 @@ function applyPatches (node, currentPatches) {
         break
       // 变更文本
       case 3:
-        // node.nodeValue 为了兼容 IE
-        if (node.textContent) node.textContent = currentPatch.text
-        else node.nodeValue = currentPatch.text
+        node.innerTextf = currentPatch.text
         break
     }
   })

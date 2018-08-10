@@ -6,8 +6,8 @@ class VNode {
     this.key = undefined
     if (properties.hasOwnProperty('key')) {
       this.key = properties.key
-      delete properties.key
     }
+    // 为了在 patch 时复用 dom 节点，需要将 key 保留在 Properties 中
     this.properties = properties
 
     // 记录该节点下有多少个子节点

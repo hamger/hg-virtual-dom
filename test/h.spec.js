@@ -13,7 +13,7 @@ describe('h', () => {
     expect(node instanceof VNode).toBe(true)
     expect(node.type).toBe('VNode')
     expect(node.tagName).toBe('DIV')
-    expect(node.properties).toEqual({ id: 'app' })
+    expect(node.properties).toEqual(jasmine.objectContaining({ id: 'app' }))
     expect(node.children).toEqual(['hello world'])
     expect(node.count).toBe(1)
     expect(node.key).toBe('hi')
