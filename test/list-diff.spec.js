@@ -3,13 +3,17 @@ import listDiff from '../src/list-diff'
 describe('listDiff', () => {
   it('listDiff return a childern and moves', () => {
     var oldList = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]
-    var newList = [{ id: 2 }, { id: 3 }, { id: 1 }]
+    var newList = [{id: 6}, { id: 3 }, { id: 2 }, { id: 1 }]
     var patches = listDiff(oldList, newList, 'id')
     expect(patches.children).toEqual([{ id: 1 }, { id: 2 }, { id: 3 }, null])
+    // type 1 表示插入， 0 表示删除
     expect(patches.moves).toEqual([
       { type: 0, index: 3 },
-      { type: 0, index: 0 },
-      { type: 1, index: 2, item: { id: 1 } }
+      { type: 1, index: 0, item: { id: 6 } },
+      { type: 1, index: 1, item: { id: 3 } },
+      { type: 0, index: 2 },
+      { type: 1, index: 3, item: { id: 1 } },
+      { type: 0, index: 4 }
     ])
   })
 })

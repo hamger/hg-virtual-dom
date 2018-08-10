@@ -57,6 +57,9 @@ var patches = diff(root, newRoot);
 ```
 
 ## Changelog
+### 2018.8.10
+> v0.2.2 修复 list-diff 不清除多余项的问题
+
 ### 2018.8.9
 > v0.2.1 支持 style 属性值为字符串或者对象的形式
 

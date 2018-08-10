@@ -4,20 +4,41 @@ import VNode from '../src/vnode.js'
 
 describe('diff', function () {
   it('diff return patches', function () {
-    var oldTree = h('div', { id: 'container' }, [
-      h('h1', { style: `color: red` }, ['simple virtal dom']),
-      h('p', [`the count is : 1`]),
-      h('ul', [h('li', ['item01'])])
-    ])
-    var newTree = h('div', { id: 'container2' }, [
-      h('h1', { style: `color: green` }, [h('span', ['dom'])]),
-      h('p', ['the count is : 0'])
-    ])
+    var oldTree = h(
+      'div',
+      {
+        id: 'container',
+        onclick: () => {
+          console.log(456)
+        }
+      },
+      [
+        h('h1', { style: `color: red` }, ['simple virtal dom']),
+        h('p', [`the count is : 1`]),
+        h('ul', [h('li', ['item01'])])
+      ]
+    )
+    console.log(oldTree.properties)
+    var newTree = h(
+      'div',
+      {
+        id: 'container2',
+        class: 'box',
+        onclick: () => {
+          console.log(123)
+        }
+      },
+      [
+        h('h1', { style: `color: green` }, [h('span', ['dom'])]),
+        h('p', ['the count is : 0'])
+      ]
+    )
     var patches = diff(oldTree, newTree)
+    console.log(patches[0])
     // 补丁类型(type)：0 - 替换元素；1 - 列表排序；2 - 变更属性；3 - 变更文本
     expect(patches[0]).toEqual([
       {
-        props: { id: 'container2' },
+        props: { id: 'container2', class: 'box' },
         type: 2
       },
       {

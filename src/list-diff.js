@@ -16,15 +16,11 @@
  ]
  规定：type = 0 是删除操作， type = 1 是新增操作
 */
-function listDiff (oldList, newList, key) {
+export default function listDiff (oldList, newList, key) {
   var oldMap = makeKeyIndexAndFree(oldList, key)
   var newMap = makeKeyIndexAndFree(newList, key)
-  // 保存新数组中没有key属性的项
+  // 获取新数组中没有key属性的项
   var newFree = newMap.free
-
-  // 获得新旧数组中 key 和 数组索引 的映射关系
-  var oldKeyIndex = oldMap.keyIndex
-  var newKeyIndex = newMap.keyIndex
 
   var moves = []
   var children = []
@@ -32,6 +28,10 @@ function listDiff (oldList, newList, key) {
   var freeIndex = 0
   var item
   var itemKey
+
+  // 获得新旧数组中 key 和 数组索引 的映射关系
+  var oldKeyIndex = oldMap.keyIndex
+  var newKeyIndex = newMap.keyIndex
 
   // 遍历旧数组，获取源数组
   while (i < oldList.length) {
@@ -53,6 +53,8 @@ function listDiff (oldList, newList, key) {
     }
     i++
   }
+  // 用于记录操作后的数组长度和新数组长度的相对值
+  var count = 0
   // 删除不存在的项，不直接操作 children ，因为 children 会作为源数组返回
   var simulateList = children.slice(0)
   // 先把新数组中没有的项删除
@@ -63,6 +65,7 @@ function listDiff (oldList, newList, key) {
       remove(i)
       // 调用该方法执行删除
       removeSimulate(i)
+      count--
     } else {
       i++
     }
@@ -88,6 +91,7 @@ function listDiff (oldList, newList, key) {
         if (!oldKeyIndex.hasOwnProperty(itemKey)) {
           // 新数组中某项 不存在于 旧数组的情况，则在当前位置插入新项
           insert(i, item)
+          count++
         } else {
           // 新数组中某项 存在于 旧数组的情况
           // 获取源数组的下一项
@@ -96,18 +100,29 @@ function listDiff (oldList, newList, key) {
             // 如果源数组的下一项是新数组中的当前项，只需要删除源数组中的该项即可，因为下一项会自行往前移动一位
             remove(i)
             removeSimulate(j)
+            count--
             j++
           } else {
             // 如果源数组的下一项不是新数组中的当前项，则在当前位置插入新项
             insert(i, item)
+            count++
           }
         }
       }
     } else {
       // 如果源数组中的该项没有 key ，则在当前位置插入新项
       insert(i, item)
+      count++
     }
     i++
+  }
+
+  // 如果操作后的数组长度超过期望的新数组长度，则需要移除多余的项
+  var len = newList.length
+  if (count > 0 && len <= oldList.length) {
+    for (var k = len; k < len + count; k++) {
+      remove(k)
+    }
   }
 
   // 记录删除操作, type = 0 表示删除操作
@@ -166,10 +181,6 @@ function makeKeyIndexAndFree (list, key) {
 }
 
 function getItemKey (item, key) {
-  if (!item || !key) {
-    return
-  }
-  return typeof key === 'string' ? item[key] : key[item]
+  if (!item || !key) return undefined
+  else return item[String(key)]
 }
-
-export default listDiff

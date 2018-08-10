@@ -1,9 +1,14 @@
 class VNode {
   constructor (tagName, properties, children) {
+    // 参数已经在 h 中做了规范，所以不需要规定默认值
     this.tagName = tagName
-    this.properties = properties || {}
-    this.children = children || []
-    this.key = properties && properties.key
+    this.children = children
+    this.key = undefined
+    if (properties.hasOwnProperty('key')) {
+      this.key = properties.key
+      delete properties.key
+    }
+    this.properties = properties
 
     // 记录该节点下有多少个子节点
     let count = 0

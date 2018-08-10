@@ -54,8 +54,9 @@ function applyPatches (node, currentPatches) {
         break
       // 变更文本
       case 3:
+        // node.nodeValue 为了兼容 IE
         if (node.textContent) node.textContent = currentPatch.text
-        else node.nodeValue = currentPatch.content
+        else node.nodeValue = currentPatch.text
         break
     }
   })
@@ -85,10 +86,7 @@ function reorderChildren (node, moves) {
     var index = move.index
     if (move.type === 0) {
       // remove item
-      // 存在由于插入而导致该位置的元素已经被变更的情况，因此需要做判断
-      if (staticNodeList[index] === node.childNodes[index]) {
-        node.removeChild(node.childNodes[index])
-      }
+      node.removeChild(node.childNodes[index])
       staticNodeList.splice(index, 1)
     } else if (move.type === 1) {
       // insert item
