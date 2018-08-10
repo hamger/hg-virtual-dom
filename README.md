@@ -40,16 +40,16 @@ You should always provide a unique key property for each child in array(just lik
 
 ```js
 var root = h("ul", [
-  h("li", { key: "uid1" }, ["Jerry"]),
-  h("li", { key: "uid2" }, ["Tomy"]),
-  h("li", { key: "uid3" }, ["Lucy"])
+  h("li", { key: "1" }, ["Jerry"]),
+  h("li", { key: "2" }, ["Tomy"]),
+  h("li", { key: "3" }, ["Lucy"])
 ]);
 
 var newRoot = h("ul", [
-  h("li", { key: "uid1" }, ["Jerry"]),
-  h("li", { key: "uid2" }, ["Tomy"]),
-  h("li", { key: "uid4" }, ["Lily"]),
-  h("li", { key: "uid3" }, ["Lucy"])
+  h("li", { key: "1" }, ["Jerry"]),
+  h("li", { key: "2" }, ["Tomy"]),
+  h("li", { key: "4" }, ["Lily"]),
+  h("li", { key: "3" }, ["Lucy"])
 ]);
 
 // ensure `patches` is minimum
