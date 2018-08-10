@@ -3,7 +3,7 @@ import setAttr from '../src/setAttr'
 describe('setAttr', function () {
   var foo
   beforeEach(function () {
-    this.node = document.createElement('input')
+    this.node = document.createElement('div')
     foo = {
       hi: function () {
         console.log('hi')
@@ -16,9 +16,9 @@ describe('setAttr', function () {
   it('setAttr set calss', function () {
     setAttr(this.node, 'class', 'foo bar')
     expect(this.node.className).toBe('foo bar')
-    setAttr(this.node, 'class', 'foo')
+    setAttr(this.node, 'className', 'foo')
     expect(this.node.className).toBe('foo')
-    setAttr(this.node, 'className', undefined)
+    setAttr(this.node, 'class', undefined)
     expect(this.node.className).toBe('')
   })
 
@@ -45,7 +45,14 @@ describe('setAttr', function () {
 
   it('setAttr set value', function () {
     setAttr(this.node, 'value', '1123')
-    // 测试spy是否调用
-    expect(this.node.value).toBe('1123')
+    expect(this.node.attributes.value.nodeValue).toBe('1123')
+
+    var textarea = document.createElement('TEXTAREA')
+    setAttr(textarea, 'value', '123')
+    expect(textarea.value).toBe('123')
+
+    var input = document.createElement('input')
+    setAttr(input, 'value', '234')
+    expect(input.value).toBe('234')
   })
 })

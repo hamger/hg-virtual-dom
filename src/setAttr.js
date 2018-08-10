@@ -12,8 +12,8 @@ export default function setAttr (node, key, value) {
       node.style.cssText = value
     }
   } else if (key === 'value') {
-    var tagName = node.tagName || ''
-    tagName = tagName.toUpperCase()
+    // 在 HTML 中，tagName 属性的返回值始终是大写的
+    var tagName = node.tagName
     if (tagName === 'INPUT' || tagName === 'TEXTAREA') {
       node.value = value
     } else {
@@ -56,12 +56,9 @@ function isEventProp (name) {
 
 // 移除属性
 function removeProperty (node, propName) {
-  if (isClassName(propName)) {
-    node.removeAttribute('class')
-  } else if (propName === 'style') {
-    node.removeAttribute('style')
-  } else if (!isEventProp(propName)) {
-    node[propName] = ''
+  if (!isEventProp(propName)) {
+    if (isClassName(propName)) node.removeAttribute('class')
+    else node.removeAttribute(propName)
   } else {
     // 置空事件
     node[propName] = null

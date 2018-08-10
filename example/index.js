@@ -19,7 +19,7 @@ function renderTree () {
       )
     )
   }
-  return h('div', { id: 'container' }, [
+  return h('div', { id: 'container', value: 123 }, [
     h('h1', { style: `color:${color}` }, ['simple virtal dom']),
     h('p', [`the count is : ${count}`]),
     h('ul', items)
@@ -28,7 +28,7 @@ function renderTree () {
 var tree = renderTree()
 // console.log(tree)
 var root = create(tree)
-// console.log([root])
+console.log([root])
 document.body.appendChild(root)
 
 var timerCount = 0
