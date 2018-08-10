@@ -58,6 +58,8 @@ var patches = diff(root, newRoot);
 
 ## Changelog
 ### 2018.8.10
+> v0.2.3 修复 list-diff 忽略文本节点的问题
+
 > v0.2.2 修复 list-diff 不清除多余项的问题
 
 ### 2018.8.9

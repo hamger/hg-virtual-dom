@@ -56,8 +56,27 @@ describe('patch', function () {
     ])
     var patches = diff(tree, newTree)
     var newDom = patch(dom, patches)
-    console.log(newDom)
     expect(newDom.childNodes[1].childNodes[0].nodeValue).toBe('haha-3')
+    expect(newDom.childNodes.length).toBe(3)
+  })
+  
+  it('patch to two text item', function() {
+    var tree = h('ul', [
+      h('li', {key: 1}, ['haha-1']),
+      h('li', {key: 2}, ['haha-2']),
+      h('li', {key: 3}, ['haha-3']),
+      h('li', {key: 4}, ['haha-4']),
+    ])
+    var dom = create(tree)
+    var newTree = h('ul', [
+      'hello sunny',
+      h('li', {key: 3}, ['haha-3']),
+      'hello world',
+    ])
+    var patches = diff(tree, newTree)
+    var newDom = patch(dom, patches)
+    expect(newDom.childNodes[1].childNodes[0].nodeValue).toBe('haha-3')
+    expect(newDom.childNodes[0].nodeValue).toBe('hello sunny')
     expect(newDom.childNodes.length).toBe(3)
   })
 })

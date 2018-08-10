@@ -1,4 +1,4 @@
-import { isPrimitive } from "./util";
+import { isPrimitive } from './util'
 
 // import { each } from './util'
 
