@@ -81,38 +81,31 @@ export default function listDiff (oldList, newList, key) {
     item = newList[i]
     itemKey = getItemKey(item, key)
 
-    var simulateItem = simulateList[j]
-    var simulateItemKey = getItemKey(simulateItem, key)
-    if (simulateItem) {
-      if (itemKey === simulateItemKey) {
-        // 某项在源数组和新数组中位置都相同，则不进行任何操作，跳入下一个循环
-        j++
+    var simulateItemKey = getItemKey(simulateList[j], key)
+    if (itemKey === simulateItemKey) {
+      // 某项在源数组和新数组中位置都相同，则不进行任何操作，跳入下一个循环
+      j++
+    } else {
+      if (!oldKeyIndex.hasOwnProperty(itemKey)) {
+        // 新数组中某项 不存在于 旧数组的情况，则在当前位置插入新项
+        insert(i, item)
+        count++
       } else {
-        if (!oldKeyIndex.hasOwnProperty(itemKey)) {
-          // 新数组中某项 不存在于 旧数组的情况，则在当前位置插入新项
+        // 新数组中某项 存在于 旧数组的情况
+        // 获取源数组的下一项
+        var nextItemKey = getItemKey(simulateList[j + 1], key)
+        if (nextItemKey === itemKey) {
+          // 如果源数组的下一项是新数组中的当前项，只需要删除源数组中的该项即可，因为下一项会自行往前移动一位
+          remove(i)
+          removeSimulate(j)
+          count--
+          j++
+        } else {
+          // 如果源数组的下一项不是新数组中的当前项，则在当前位置插入新项
           insert(i, item)
           count++
-        } else {
-          // 新数组中某项 存在于 旧数组的情况
-          // 获取源数组的下一项
-          var nextItemKey = getItemKey(simulateList[j + 1], key)
-          if (nextItemKey === itemKey) {
-            // 如果源数组的下一项是新数组中的当前项，只需要删除源数组中的该项即可，因为下一项会自行往前移动一位
-            remove(i)
-            removeSimulate(j)
-            count--
-            j++
-          } else {
-            // 如果源数组的下一项不是新数组中的当前项，则在当前位置插入新项
-            insert(i, item)
-            count++
-          }
         }
       }
-    } else {
-      // 如果源数组中的该项没有 key ，则在当前位置插入新项
-      insert(i, item)
-      count++
     }
     i++
   }
