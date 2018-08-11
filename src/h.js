@@ -46,14 +46,13 @@ function normalizeTag (tag) {
 
 // 规范化传入的属性
 function normalizeProps (props) {
-  var tmp = {}
   for (var key in props) {
     var value = props[key]
     if (isPrimitive(value)) {
-      tmp[key] = delBlank(String(value))
+      props[key] = delBlank(String(value))
     }
   }
-  return tmp
+  return props
 }
 
 // 去除字符串多余空格，并将内部的多个空格转化为一个空格

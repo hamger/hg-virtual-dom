@@ -36,7 +36,10 @@ describe('diff', function () {
     // 补丁类型(type)：0 - 替换元素；1 - 列表排序；2 - 变更属性；3 - 变更文本
     expect(patches[0]).toEqual([
       {
-        props: { id: 'container2', class: 'box' },
+        props: jasmine.objectContaining({
+          id: 'container2',
+          class: 'box',
+        }),
         type: 2
       },
       {

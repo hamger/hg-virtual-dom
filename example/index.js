@@ -33,34 +33,34 @@ var root = create(tree)
 console.log([root])
 document.body.appendChild(root)
 
-var timerCount = 0
-var timer = setInterval(function () {
-  if (timerCount < 3) {
-    var newTree = renderTree()
-    var patches = diff(tree, newTree)
-    console.log(patches)
-    patch(root, patches)
-    tree = newTree
-    timerCount++
-  } else {
-    clearInterval(timer)
-  }
-}, 1000)
+// var timerCount = 0
+// var timer = setInterval(function () {
+//   if (timerCount < 3) {
+//     var newTree = renderTree()
+//     var patches = diff(tree, newTree)
+//     console.log(patches)
+//     patch(root, patches)
+//     tree = newTree
+//     timerCount++
+//   } else {
+//     clearInterval(timer)
+//   }
+// }, 1000)
 
-var tree2 = h('ul', [
-  h('li', { key: 1 }, ['haha-1']),
-  h('li', { key: 2 }, ['haha-2']),
-  h('li', { key: 3 }, ['haha-3']),
-  h('li', { key: 4 }, ['haha-4'])
-])
-var dom = create(tree2)
-document.body.appendChild(dom)
-var newTree2 = h('ul', [
-  h('li', { key: 6 }, ['haha-6']),
-  h('li', { key: 3 }, ['haha-3']),
-  h('li', { key: 2 }, ['haha-2']),
-  h('li', { key: 1 }, ['haha-1'])
-])
-var patches2 = diff(tree2, newTree2)
-console.log(patches2)
-patch(dom, patches2)
+// var tree2 = h('ul', [
+//   h('li', { key: 1 }, ['haha-1']),
+//   h('li', { key: 2 }, ['haha-2']),
+//   h('li', { key: 3 }, ['haha-3']),
+//   h('li', { key: 4 }, ['haha-4'])
+// ])
+// var dom = create(tree2)
+// document.body.appendChild(dom)
+// var newTree2 = h('ul', [
+//   h('li', { key: 6 }, ['haha-6']),
+//   h('li', { key: 3 }, ['haha-3']),
+//   h('li', { key: 2 }, ['haha-2']),
+//   h('li', { key: 1 }, ['haha-1'])
+// ])
+// var patches2 = diff(tree2, newTree2)
+// console.log(patches2)
+// patch(dom, patches2)

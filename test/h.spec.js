@@ -29,15 +29,19 @@ describe('h', () => {
     expect(node.properties.className).toBe('bar foo')
   })
 
-  it('h will throw error when unexpected virtual dom node', () => {
-    // expect(h('div', [{ a: 123 }]).bind(this)).toThrowError(/unexpected/)
-    var foo = function() {
-      h('div', [{ a: 123 }])
-    };
+  it('h with event', () => {
+    var node = h('div ', {
+      onclick: () => {
+        console.log
+      }
+    })
+    expect(node.properties.hasOwnProperty('onclick')).toBe(true)
+  })
 
-    // expect(foo).toThrowError("foo bar baz");
+  it('h will throw error when unexpected virtual dom node', () => {
+    var foo = function () {
+      h('div', [{ a: 123 }])
+    }
     expect(foo).toThrowError(/unexpected virtual dom node/)
-    // expect(foo).toThrowError(TypeError);
-    // expect(foo).toThrowError(TypeError, "foo bar baz");
   })
 })
