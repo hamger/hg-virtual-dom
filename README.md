@@ -57,6 +57,9 @@ var patches = diff(root, newRoot);
 ```
 
 ## Changelog
+### 2018.8.11
+> v1.0.1 将判断是否为 VNode 实例的属性从 type 改为 $type 
+
 ### 2018.8.10
 > v1.0.0 完成单元测试，覆盖率达到百分之百
 
