@@ -86,11 +86,12 @@ export default function listDiff (oldList, newList, key) {
     itemKey = getItemKey(item, key)
 
     var simulateItemKey = getItemKey(simulateList[j], key)
-    // 如果是文本节点，不能用key比较，直接比较值
     if (isPrimitive(item) && item !== simulateList[j]) {
+      // 如果是文本节点，不能用key比较，直接比较值，如果不相等，插入
       insert(i, item)
       count++
     } else if (itemKey === simulateItemKey) {
+      // 文本节点相等的情况会进入，因为 undefined === undefined 返回 true
       // 某项在源数组和新数组中位置都相同，则不进行任何操作，跳入下一个循环
       j++
     } else {

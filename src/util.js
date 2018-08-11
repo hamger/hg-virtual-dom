@@ -18,12 +18,6 @@ export const isPrimitive = arg => {
   return type(arg) === 'String' || type(arg) === 'Number'
 }
 
-export const each = (array, fn) => {
-  for (var i = 0, len = array.length; i < len; i++) {
-    fn(array[i], i)
-  }
-}
-
 export const toArray = listLike => {
   var list = []
   // 该对象需要有lenght属性，才能转化

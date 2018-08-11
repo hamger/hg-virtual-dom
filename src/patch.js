@@ -1,4 +1,4 @@
-import { toArray, each } from './util'
+import { toArray } from './util'
 import setAttr from './setAttr'
 import VNode from './vnode'
 import create from './create'
@@ -34,7 +34,7 @@ function walk (node, walker, patches) {
  * @param {针对该dom节点的补丁} currentPatches
  */
 function applyPatches (node, currentPatches) {
-  each(currentPatches, function (currentPatch) {
+  currentPatches.forEach(function (currentPatch) {
     switch (currentPatch.type) {
       // 替换元素
       case 0:
@@ -72,7 +72,7 @@ function reorderChildren (node, moves) {
   var maps = {}
 
   // 收集列表项 key ，用于复用元素
-  each(staticNodeList, function (node) {
+  staticNodeList.forEach(function (node) {
     if (node.nodeType === 1) {
       var key = node.getAttribute('key')
       if (key) maps[key] = node
@@ -80,7 +80,7 @@ function reorderChildren (node, moves) {
   })
 
   // 执行列表项项操作
-  each(moves, function (move) {
+  moves.forEach(function (move) {
     var index = move.index
     if (move.type === 0) {
       // remove item
