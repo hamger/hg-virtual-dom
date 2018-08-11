@@ -23,6 +23,6 @@ class VNode {
 }
 
 // 添加 type 属性，作为外部判断是否是 VNode 实例的标识
-VNode.prototype.type = 'VNode'
+VNode.prototype.$type = 'VNode'
 
 export default VNode

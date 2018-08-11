@@ -11,7 +11,7 @@ describe('h', () => {
     var node = new h('div', { id: 'app', key: 'hi' }, ['hello world'])
 
     expect(node instanceof VNode).toBe(true)
-    expect(node.type).toBe('VNode')
+    expect(node.$type).toBe('VNode')
     expect(node.tagName).toBe('DIV')
     expect(node.properties).toEqual(jasmine.objectContaining({ id: 'app' }))
     expect(node.children).toEqual(['hello world'])
