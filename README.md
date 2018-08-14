@@ -58,10 +58,10 @@ var patches = diff(root, newRoot);
 
 ## Changelog
 ### 2018.8.14
-> v1.1.1 修复没有 key 时列表渲染错误
+> v1.0.3 修复没有 key 时列表渲染错误
 
 ### 2018.8.11
-> v1.1.0 修复 VNode 实例不包含事件属性
+> v1.0.2 修复 VNode 实例不包含事件属性
 
 > v1.0.1 将判断是否为 VNode 实例的属性从 type 改为 $type 
 
