@@ -54,7 +54,8 @@ function applyPatches (node, currentPatches) {
         break
       // 变更文本
       case 3:
-        node.innerTextf = currentPatch.text
+        if (node.textContent) node.textContent = currentPatch.text
+        else node.nodeValue = currentPatch.text
         break
     }
   })
@@ -69,13 +70,26 @@ function setProps (node, props) {
 
 function reorderChildren (node, moves) {
   var staticNodeList = toArray(node.childNodes)
+
+  // if (moves === 'reset') {
+  //   while (
+  //     node.hasChildNodes() // 当div下还存子节点时 循环继续
+  //   ) {
+  //     node.removeChild(node.firstChild)
+  //   }
+  //   staticNodeList.forEach(function (child) {
+  //     node.appendChild(child)
+  //   })
+  //   return
+  // }
+
   var maps = {}
 
   // 收集列表项 key ，用于复用元素
-  staticNodeList.forEach(function (node) {
-    if (node.nodeType === 1) {
-      var key = node.getAttribute('key')
-      if (key) maps[key] = node
+  staticNodeList.forEach(function (child) {
+    if (child.nodeType === 1) {
+      var key = child.getAttribute('key')
+      if (key) maps[key] = child
     }
   })
 

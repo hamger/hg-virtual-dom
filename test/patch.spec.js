@@ -79,4 +79,24 @@ describe('patch', function () {
     expect(newDom.childNodes[0].nodeValue).toBe('hello sunny')
     expect(newDom.childNodes.length).toBe(3)
   })
+
+  it('patch without key', function() {
+    var tree = h('ul', [
+      h('li', ['haha-1']),
+      h('li', ['haha-2']),
+      h('li', ['haha-3']),
+      h('li', ['haha-4']),
+    ])
+    var dom = create(tree)
+    var newTree = h('ul', [
+      h('li', ['haha-2']),
+      h('li', ['haha-3']),
+      'hello world',
+    ])
+    var patches = diff(tree, newTree)
+    var newDom = patch(dom, patches)
+    expect(newDom.childNodes[1].childNodes[0].nodeValue).toBe('haha-3')
+    expect(newDom.childNodes[2].nodeValue).toBe('hello world')
+    expect(newDom.childNodes.length).toBe(3)
+  })
 })

@@ -8,7 +8,8 @@
     "dev": "webpack-dev-server --hot --config build/webpack.dev.conf.js",
     "build": "webpack --config build/webpack.prod.conf.js",
     "start": "npm run dev",
-    "tonpm": "npm run build && npm version patch && npm publish"
+    "tonpm": "npm run build && npm version patch && npm publish",
+    "test": "karma start"
   },
   "main": "dist/hg-virtual-dom.js",
   "keywords": [
