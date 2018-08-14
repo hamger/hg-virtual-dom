@@ -54,6 +54,7 @@ function applyPatches (node, currentPatches) {
         break
       // 变更文本
       case 3:
+        // 兼容低版本 IE，需要使用 nodeValue
         if (node.textContent) node.textContent = currentPatch.text
         else node.nodeValue = currentPatch.text
         break
