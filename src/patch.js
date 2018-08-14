@@ -99,7 +99,10 @@ function reorderChildren (node, moves) {
     var index = move.index
     if (move.type === 0) {
       // remove item
-      node.removeChild(node.childNodes[index])
+      // 如果该子元素不存在，则不需要执行 removeChild
+      if (node.childNodes[index]) {
+        node.removeChild(node.childNodes[index])
+      }
       staticNodeList.splice(index, 1)
     } else if (move.type === 1) {
       // insert item
