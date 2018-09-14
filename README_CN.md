@@ -22,7 +22,7 @@ var root = create(tree);
 // 创建一个新的虚拟 dom 树
 var newTree = h("div", { id: "container" }, [
   h("h1", { style: "color: red" }, ["simple virtal dom"]),
-  h("p", ["Hello, virtual-dom"]),
+  h("p", ["Hi, virtual-dom"]),
   h("ul", [h("li"), h("li")])
 ]);
 
@@ -33,10 +33,9 @@ var patches = diff(tree, newTree);
 patch(root, patches);
 ```
 
+你可以在[example 文件夹](./example)下查看另一个例子。
 
-You can checkout the full example in example folder.
-
-You should always provide a unique key property for each child in array(just like ReactJS's keyed children) for Virtual-DOM to reorder children instead of replacing the whole list when perform diff algorithm.
+在列表项中推荐总是提供一个独一无二的`key`属性（就像在 ReactJS 中一样），因为这样可以使 `hg-virtual-dom` 对子项执行 diff 算法以实现重新排序，而不是直接替换掉所有的子项。
 
 ```js
 var root = h("ul", [
@@ -52,7 +51,7 @@ var newRoot = h("ul", [
   h("li", { key: "3" }, ["Lucy"])
 ]);
 
-// ensure `patches` is minimum
+// 确保补丁是最小的
 var patches = diff(root, newRoot);
 ```
 

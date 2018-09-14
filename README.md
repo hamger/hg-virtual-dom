@@ -35,7 +35,7 @@ patch(root, patches);
 
 You can checkout an another example in [example folder](./example).
 
-You should always provide a unique key property for each child in array(just like ReactJS's keyed children) for Virtual-DOM to reorder children instead of replacing the whole list when perform diff algorithm.
+You should always provide a unique `key` property for each child in array(just like ReactJS's keyed children) for `hg-virtual-dom` to reorder children instead of replacing the whole list when perform diff algorithm.
 
 ```js
 var root = h("ul", [
