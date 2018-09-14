@@ -1,6 +1,6 @@
 # hg-virtual-dom
 
-一个易用的解决方案，用来减少手动 DOM 操作。
+一个易用的解决方案，用来减少手动的 DOM 操作。
 
 [English document](./README.md)
 
@@ -32,6 +32,7 @@ var patches = diff(tree, newTree);
 // 使用 `patch` 将补丁应用到真实的 Dom 元素
 patch(root, patches);
 ```
+
 
 You can checkout the full example in example folder.
 
