@@ -1,6 +1,6 @@
 # hg-virtual-dom
 
-一个易用的解决方案，用来减少手动的 DOM 操作。
+一个用来减少手动 DOM 操作的解决方案，简单易用。
 
 [English document](./README.md)
 
