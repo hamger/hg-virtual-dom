@@ -104,7 +104,7 @@ function reorderChildren (node, moves) {
         node.removeChild(node.childNodes[index])
       }
       staticNodeList.splice(index, 1)
-    } else if (move.type === 1) {
+    } else if (move.type === 1 && node.nodeType !== 3) {
       // insert item
       var insertNode = maps[move.item.key] ?
         maps[move.item.key].cloneNode(true) : // 复用节点

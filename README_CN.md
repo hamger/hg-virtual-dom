@@ -56,6 +56,9 @@ var patches = diff(root, newRoot);
 ```
 
 ## Changelog
+### 2018.11.1
+> v1.0.4 防止文本节点调用 insertBefore 方法
+
 ### 2018.8.14
 > v1.0.3 修复没有 key 时列表渲染错误
 
