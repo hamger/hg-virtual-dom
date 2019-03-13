@@ -7,8 +7,9 @@ module.exports = {
   output: {
     filename: 'hg-virtual-dom.js',
     path: path.resolve(__dirname, '../dist'),
-    library: 'hg-virtual-dom',
-    libraryTarget: 'umd'
+    library: 'HgVirtualDom',
+    libraryTarget: 'umd',
+    libraryExport: 'default',
   },
   resolve: {
     extensions: [".jsx", ".json", ".js"],

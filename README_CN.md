@@ -56,6 +56,9 @@ var patches = diff(root, newRoot);
 ```
 
 ## Changelog
+### 2018.3.14
+> v1.0.5 修复打包错误
+
 ### 2018.11.1
 > v1.0.4 防止文本节点调用 insertBefore 方法
 
