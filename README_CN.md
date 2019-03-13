@@ -56,21 +56,27 @@ var patches = diff(root, newRoot);
 ```
 
 ## Changelog
+
 ### 2018.3.14
+
 > v1.0.5 修复打包错误
 
 ### 2018.11.1
+
 > v1.0.4 防止文本节点调用 insertBefore 方法
 
 ### 2018.8.14
+
 > v1.0.3 修复没有 key 时列表渲染错误
 
 ### 2018.8.11
+
 > v1.0.2 修复 VNode 实例不包含事件属性
 
-> v1.0.1 将判断是否为 VNode 实例的属性从 type 改为 $type 
+> v1.0.1 将判断是否为 VNode 实例的属性从 type 改为 \$type
 
 ### 2018.8.10
+
 > v1.0.0 完成单元测试，覆盖率达到百分之百
 
 > v0.2.3 修复 list-diff 忽略文本节点的问题
@@ -78,11 +84,12 @@ var patches = diff(root, newRoot);
 > v0.2.2 修复 list-diff 不清除多余项的问题
 
 ### 2018.8.9
+
 > v0.2.1 支持 style 属性值为字符串或者对象的形式
 
 ### 2018.8.7
 
-> v0.2.0 修复设置类名前没有清零导致的类名更新错误；修复 addEventListener 导致事件监听累积添加的问题；删除 VNode、VText 方法；删除 VNode 实例中的 render 方法，改用 create 方法代替 
+> v0.2.0 修复设置类名前没有清零导致的类名更新错误；修复 addEventListener 导致事件监听累积添加的问题；删除 VNode、VText 方法；删除 VNode 实例中的 render 方法，改用 create 方法代替
 
 ### 2018.7.24
 
