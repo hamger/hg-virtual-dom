@@ -5,7 +5,7 @@ import setAttr from './setAttr'
 import VNode from './vnode'
 import create from './create'
 
-function patch(node, patches) {
+function patch (node, patches) {
   var walker = {
     index: 0
   }
@@ -13,7 +13,7 @@ function patch(node, patches) {
   return node
 }
 
-function walk(node, walker, patches) {
+function walk (node, walker, patches) {
   var currentPatches = patches[walker.index]
 
   // 深度遍历子节点
@@ -37,15 +37,15 @@ function walk(node, walker, patches) {
  * @param {dom节点} node
  * @param {针对该dom节点的补丁} currentPatches
  */
-function applyPatches(node, currentPatches) {
+function applyPatches (node, currentPatches) {
   currentPatches.forEach(function (currentPatch) {
     switch (currentPatch.type) {
       // 替换元素
       case 0:
         var newNode =
           currentPatch.node instanceof VNode ?
-          create(currentPatch.node) :
-          document.createTextNode(currentPatch.node)
+            create(currentPatch.node) :
+            document.createTextNode(currentPatch.node)
         node.parentNode.replaceChild(newNode, node)
         break
         // 列表排序
@@ -66,14 +66,14 @@ function applyPatches(node, currentPatches) {
   })
 }
 
-function setProps(node, props) {
+function setProps (node, props) {
   for (var key in props) {
     var value = props[key]
     setAttr(node, key, value)
   }
 }
 
-function reorderChildren(node, moves) {
+function reorderChildren (node, moves) {
   var staticNodeList = toArray(node.childNodes)
 
   var maps = {}
@@ -101,8 +101,8 @@ function reorderChildren(node, moves) {
       var insertNode = maps[move.item.key] ?
         maps[move.item.key].cloneNode(true) : // 复用节点
         move.item instanceof VNode ?
-        create(move.item) : // 创建元素节点
-        document.createTextNode(move.item) // 创建文本节点
+          create(move.item) : // 创建元素节点
+          document.createTextNode(move.item) // 创建文本节点
 
       staticNodeList.splice(index, 0, insertNode)
       node.insertBefore(insertNode, node.childNodes[index] || null)

@@ -1,5 +1,5 @@
 class VNode {
-  constructor(tagName, properties, children) {
+  constructor (tagName, properties, children) {
     // 参数已经在 h 中做了规范，所以不需要规定默认值
     this.tagName = tagName
     this.children = children

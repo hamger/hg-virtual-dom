@@ -19,7 +19,7 @@ import {
   ]
   规定：type = 0 是删除操作， type = 1 是新增操作
 */
-export default function listDiff(oldList, newList, key) {
+export default function listDiff (oldList, newList, key) {
   var oldMap = makeKeyIndexAndFree(oldList, key)
   var newMap = makeKeyIndexAndFree(newList, key)
 
@@ -133,7 +133,7 @@ export default function listDiff(oldList, newList, key) {
   }
 
   // 记录删除操作, type = 0 表示删除操作
-  function remove(index) {
+  function remove (index) {
     var move = {
       index: index,
       type: 0
@@ -142,7 +142,7 @@ export default function listDiff(oldList, newList, key) {
   }
 
   // 记录插入操作，type = 1 表示新增操作
-  function insert(index, item) {
+  function insert (index, item) {
     var move = {
       index: index,
       item: item,
@@ -152,7 +152,7 @@ export default function listDiff(oldList, newList, key) {
   }
 
   // 删除数组的某项
-  function removeSimulate(index) {
+  function removeSimulate (index) {
     simulateList.splice(index, 1)
   }
 
@@ -174,7 +174,7 @@ export default function listDiff(oldList, newList, key) {
   var map = makeKeyIndexAndFree(list, 'key')
   console.log(map) // {keyIndex: {id1: 0, id2: 1, id3: 2, id4: 3}, free: []}
 */
-function makeKeyIndexAndFree(list, key) {
+function makeKeyIndexAndFree (list, key) {
   var keyIndex = {}
   // 没有 key 的项存放在 free 数组
   var free = []
@@ -194,7 +194,7 @@ function makeKeyIndexAndFree(list, key) {
   }
 }
 
-function getItemKey(item, key) {
+function getItemKey (item, key) {
   if (!item || !key) return undefined
   else return item[String(key)]
 }

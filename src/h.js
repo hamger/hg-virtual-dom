@@ -4,7 +4,7 @@ import {
 } from './util'
 import VNode from './vnode'
 
-function h(tagName, properties, children) {
+function h (tagName, properties, children) {
   let childNodes = [] // 用于存放所有的子节点
   let tag = tagName
   let props, childs
@@ -28,7 +28,7 @@ function h(tagName, properties, children) {
   return new VNode(tag, props, childNodes)
 }
 
-function addChild(c, childNodes, tag, props) {
+function addChild (c, childNodes, tag, props) {
   if (isPrimitive(c)) {
     childNodes.push(String(c))
   } else if (c instanceof VNode) {
@@ -43,12 +43,12 @@ function addChild(c, childNodes, tag, props) {
 }
 
 // 规范化传入的标签名
-function normalizeTag(tag) {
+function normalizeTag (tag) {
   return delBlank(tag.toUpperCase())
 }
 
 // 规范化传入的属性
-function normalizeProps(props) {
+function normalizeProps (props) {
   for (var key in props) {
     var value = props[key]
     if (isPrimitive(value)) {
@@ -59,7 +59,7 @@ function normalizeProps(props) {
 }
 
 // 去除字符串多余空格，并将内部的多个空格转化为一个空格
-function delBlank(str) {
+function delBlank (str) {
   var regEx = /\s+/g
   return str.trim().replace(regEx, ' ')
 }

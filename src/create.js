@@ -1,7 +1,7 @@
 import setAttr from './setAttr'
 import VNode from './vnode'
 
-function create(vnode) {
+function create (vnode) {
   let el = document.createElement(vnode.tagName)
   let props = vnode.properties
   for (let attrName in props) {
