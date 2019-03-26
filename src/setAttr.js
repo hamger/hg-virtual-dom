@@ -1,6 +1,8 @@
-import { isObject } from './util'
+import {
+  isObject
+} from './util'
 
-export default function setAttr (node, key, value) {
+export default function setAttr(node, key, value) {
   if (value === undefined) {
     removeProperty(node, key)
   } else if (key === 'style') {
@@ -35,7 +37,7 @@ export default function setAttr (node, key, value) {
 }
 
 // 置空类名
-function emptyClass (node) {
+function emptyClass(node) {
   var arr = []
   for (var i = 0; i < node.classList.length; i++) {
     arr.push(node.classList.item(i))
@@ -46,16 +48,16 @@ function emptyClass (node) {
 }
 
 // 属性是否为类
-function isClassName (name) {
+function isClassName(name) {
   return /^(className|class)$/.test(name)
 }
 // 属性是否为事件
-function isEventProp (name) {
+function isEventProp(name) {
   return /^on[A-Za-z]/.test(name)
 }
 
 // 移除属性
-function removeProperty (node, propName) {
+function removeProperty(node, propName) {
   if (!isEventProp(propName)) {
     if (isClassName(propName)) node.removeAttribute('class')
     else node.removeAttribute(propName)

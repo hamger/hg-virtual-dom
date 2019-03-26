@@ -1,5 +1,7 @@
 import listDiff from './list-diff'
-import { isString } from './util'
+import {
+  isString
+} from './util'
 
 // 补丁类型
 var patchType = {
@@ -9,7 +11,7 @@ var patchType = {
   TEXT: 3 // 变更文本
 }
 
-function diff (oldTree, newTree) {
+function diff(oldTree, newTree) {
   var index = 0
   // 将两棵树所有的差异存放在 patches
   var patches = {}
@@ -17,7 +19,7 @@ function diff (oldTree, newTree) {
   return patches
 }
 
-function walk (oldNode, newNode, index, patches) {
+function walk(oldNode, newNode, index, patches) {
   var currentPatch = []
 
   if (newNode === null) {
@@ -26,17 +28,24 @@ function walk (oldNode, newNode, index, patches) {
   } else if (isString(oldNode) && isString(newNode)) {
     // TextNode content replacing
     if (newNode !== oldNode) {
-      currentPatch.push({ type: patchType.TEXT, text: newNode })
+      currentPatch.push({
+        type: patchType.TEXT,
+        text: newNode
+      })
     }
   } else if (
     oldNode.tagName === newNode.tagName &&
     oldNode.key === newNode.key
   ) {
+    // same tagName without key can enter，because: undefined === undefined
     // Nodes are the same, diff old node's props and children
     // Diff props
     var propsPatches = diffProps(oldNode, newNode)
     if (propsPatches) {
-      currentPatch.push({ type: patchType.PROPS, props: propsPatches })
+      currentPatch.push({
+        type: patchType.PROPS,
+        props: propsPatches
+      })
     }
     // Diff children
     diffChildren(
@@ -48,7 +57,10 @@ function walk (oldNode, newNode, index, patches) {
     )
     // Nodes are not the same, replace the old node with new node
   } else {
-    currentPatch.push({ type: patchType.REPLACE, node: newNode })
+    currentPatch.push({
+      type: patchType.REPLACE,
+      node: newNode
+    })
   }
   // 如果存在差异，则记录在 patchs 对象中
   if (currentPatch.length) {
@@ -57,13 +69,16 @@ function walk (oldNode, newNode, index, patches) {
 }
 
 // compare children
-function diffChildren (oldChildren, newChildren, index, patches, currentPatch) {
+function diffChildren(oldChildren, newChildren, index, patches, currentPatch) {
   // oldchildren 和 newchildren 为数组
   var diffs = listDiff(oldChildren, newChildren, 'key')
   newChildren = diffs.children
 
   if (diffs.moves.length) {
-    var reorderPatch = { type: patchType.REORDER, moves: diffs.moves }
+    var reorderPatch = {
+      type: patchType.REORDER,
+      moves: diffs.moves
+    }
     currentPatch.push(reorderPatch)
   }
 
@@ -74,8 +89,8 @@ function diffChildren (oldChildren, newChildren, index, patches, currentPatch) {
     // 计算当前节点标记，区分左边的节点是否拥有子节点的情况
     currentNodeIndex =
       leftNode && leftNode.count ?
-        currentNodeIndex + leftNode.count + 1 :
-        currentNodeIndex + 1
+      currentNodeIndex + leftNode.count + 1 :
+      currentNodeIndex + 1
     // 深度遍历子节点
     walk(child, newChild, currentNodeIndex, patches)
     // 更新左边的节点
@@ -84,7 +99,7 @@ function diffChildren (oldChildren, newChildren, index, patches, currentPatch) {
 }
 
 // compare attributes
-function diffProps (oldNode, newNode) {
+function diffProps(oldNode, newNode) {
   var count = 0
   var oldProps = oldNode.properties
   var newProps = newNode.properties

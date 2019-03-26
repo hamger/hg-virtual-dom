@@ -1,25 +1,28 @@
-import { isPrimitive } from './util'
+import {
+  isPrimitive
+} from './util'
 /**
  * @param {Array} oldList   原始数组
  * @param {Array} newList   新数组
  * @param {String} key 键名称
  * @return {Object} {children: [], moves: []}
- * children 表示从 oldList 到 newList 保留下来的原始数组的数据，
- * 比如 oldList = [{id: 1}, {id: 2}, {id: 3}, {id: 4}];
- * newList = [{id: 2}, {id: 3}, {id: 1}];
- 最后返回的 children = [{id: 1}, {id: 2}, {id: 3}, null]
+  children 表示从 oldList 到 newList 保留下来的原始数组，例如：
+  oldList = [{id: 1}, {id: 2}, {id: 3}, {id: 4}];
+  newList = [{id: 2}, {id: 3}, {id: 1}];
+  返回的 children = [{id: 1}, {id: 2}, {id: 3}, null]
 
- moves 表示从 oldList 到 newList 所需的操作，children为null的话，依次删除掉掉，因此返回的是
- moves = [
-  {type: 0, index:3},
-  {type: 0, index: 0},
-  {type: 1, index: 2, item: {id: 1}}
- ]
- 规定：type = 0 是删除操作， type = 1 是新增操作
+  moves 表示从 oldList 到 newList 所需的操作，返回的
+  moves = [
+    {type: 0, index:3},
+    {type: 0, index: 0},
+    {type: 1, index: 2, item: {id: 1}}
+  ]
+  规定：type = 0 是删除操作， type = 1 是新增操作
 */
-export default function listDiff (oldList, newList, key) {
+export default function listDiff(oldList, newList, key) {
   var oldMap = makeKeyIndexAndFree(oldList, key)
   var newMap = makeKeyIndexAndFree(newList, key)
+
   // 获取新数组中没有key属性的项
   var newFree = newMap.free
 
@@ -29,13 +32,6 @@ export default function listDiff (oldList, newList, key) {
   var freeIndex = 0
   var item
   var itemKey
-
-  // if (newFree.length === newList.length) {
-  //   return {
-  //     children: newList,
-  //     moves: 'reset'
-  //   }
-  // }
 
   // 获得新旧数组中 key 和 数组索引 的映射关系
   var oldKeyIndex = oldMap.keyIndex
@@ -137,19 +133,26 @@ export default function listDiff (oldList, newList, key) {
   }
 
   // 记录删除操作, type = 0 表示删除操作
-  function remove (index) {
-    var move = { index: index, type: 0 }
+  function remove(index) {
+    var move = {
+      index: index,
+      type: 0
+    }
     moves.push(move)
   }
 
   // 记录插入操作，type = 1 表示新增操作
-  function insert (index, item) {
-    var move = { index: index, item: item, type: 1 }
+  function insert(index, item) {
+    var move = {
+      index: index,
+      item: item,
+      type: 1
+    }
     moves.push(move)
   }
 
   // 删除数组的某项
-  function removeSimulate (index) {
+  function removeSimulate(index) {
     simulateList.splice(index, 1)
   }
 
@@ -171,7 +174,7 @@ export default function listDiff (oldList, newList, key) {
   var map = makeKeyIndexAndFree(list, 'key')
   console.log(map) // {keyIndex: {id1: 0, id2: 1, id3: 2, id4: 3}, free: []}
 */
-function makeKeyIndexAndFree (list, key) {
+function makeKeyIndexAndFree(list, key) {
   var keyIndex = {}
   // 没有 key 的项存放在 free 数组
   var free = []
@@ -191,7 +194,7 @@ function makeKeyIndexAndFree (list, key) {
   }
 }
 
-function getItemKey (item, key) {
+function getItemKey(item, key) {
   if (!item || !key) return undefined
   else return item[String(key)]
 }
