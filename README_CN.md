@@ -4,6 +4,18 @@
 
 [English document](./README.md)
 
+## Install
+
+```bash
+yarn add hg-virtual-dom
+```
+
+或者使用 npm ：
+
+```bash
+npm install --save hg-virtual-dom
+```
+
 ## Usage
 
 ```js

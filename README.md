@@ -4,6 +4,18 @@ An easy-to-use solution to reduce manual DOM manipulation.
 
 [中文文档](./README_CN.md)
 
+## Install
+
+```bash
+yarn add hg-virtual-dom
+```
+
+or with npm:
+
+```bash
+npm install --save hg-virtual-dom
+```
+
 ## Usage
 
 ```js
