@@ -2,11 +2,11 @@ import {
   isPrimitive
 } from './util'
 /**
- * @param {Array} oldList   原始数组
+ * @param {Array} oldList   老数组
  * @param {Array} newList   新数组
  * @param {String} key 键名称
  * @return {Object} {children: [], moves: []}
-  children 表示从 oldList 到 newList 保留下来的原始数组，例如：
+  children 表示从 oldList 到 newList 保留下来的老数组，例如：
   oldList = [{id: 1}, {id: 2}, {id: 3}, {id: 4}];
   newList = [{id: 2}, {id: 3}, {id: 1}];
   返回的 children = [{id: 1}, {id: 2}, {id: 3}, null]
@@ -43,10 +43,10 @@ export default function listDiff (oldList, newList, key) {
     itemKey = getItemKey(item, key)
     if (itemKey) {
       if (!newKeyIndex.hasOwnProperty(itemKey)) {
-        // 旧数组中某项 不存在于 新数组的情况
+        // 旧数组中该项 不存在于 新数组的情况
         children.push(null)
       } else {
-        // 旧数组中某项 存在于 新数组的情况
+        // 旧数组中该项 存在于 新数组的情况
         var newItemIndex = newKeyIndex[itemKey]
         children.push(newList[newItemIndex])
       }
@@ -77,10 +77,11 @@ export default function listDiff (oldList, newList, key) {
 
   // j 表示源数组中的索引， i 表示新数组中的索引
   var j = (i = 0)
-  // 从第 i 项开始遍历 newList，先和 simulateList 的第 j 项比较，如果相等的，不进行数组操作并 j++，跳到下一个内部循环，
-  // 否则，先判断该键是否在 oldKeyIndex 里面，如果不存在，说明是新增项，插入，
-  // 如果存在, 判断 simulateList[j + 1] 与 newList[i] 的 key 是否相等，
-  // 若相等，移除 simulateList[j]; 若不相等，插入
+  // 从第 i 项开始遍历 newList：
+  // 判断 simulateList[j] 是否存在：否->插入；是->
+  // 若是文本节点且文本内容不相等-> 插入；若 key 相等-> 不进行任何操作；
+  // 判断该键是否在 oldKeyIndex 里面：否->说明是新增项，插入；是-> 判断 simulateList[j + 1] 与 newList[i] 的 key 是否相等：
+  // 是-> 移除 simulateList[j]; 否->插入
   while (i < newList.length) {
     item = newList[i]
     itemKey = getItemKey(item, key)
@@ -94,20 +95,21 @@ export default function listDiff (oldList, newList, key) {
         count++
       } else if (itemKey === simulateItemKey) {
         // 文本节点相等的情况会进入，因为 undefined === undefined 返回 true
-        // 某项在源数组和新数组中位置都相同，则不进行任何操作，跳入下一个循环
+        // 该项在源数组和新数组中位置都相同，则不进行任何操作，跳入下一个循环
         j++
       } else {
         if (!oldKeyIndex.hasOwnProperty(itemKey)) {
-          // 新数组中某项 不存在于 旧数组的情况，则在当前位置插入新项
+          // 新数组中该项 不存在于 旧数组的情况，则在当前位置插入新项
           insert(i, item)
           count++
         } else {
-          // 新数组中某项 存在于 旧数组的情况
+          // 新数组中该项 存在于 旧数组的情况
           // 获取源数组的下一项
           var nextItemKey = getItemKey(simulateList[j + 1], key)
           if (nextItemKey === itemKey) {
             // 如果源数组的下一项是新数组中的当前项，只需要删除源数组中的该项即可，因为下一项会自行往前移动一位
             remove(i)
+            // 同时需要删除源数组的该项
             removeSimulate(j)
             count--
             j++
@@ -151,7 +153,7 @@ export default function listDiff (oldList, newList, key) {
     moves.push(move)
   }
 
-  // 删除数组的某项
+  // 删除数组的该项
   function removeSimulate (index) {
     simulateList.splice(index, 1)
   }

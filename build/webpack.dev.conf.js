@@ -30,7 +30,6 @@ module.exports = {
     compress: true
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'example/index.html',
