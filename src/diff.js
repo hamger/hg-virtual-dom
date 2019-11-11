@@ -3,14 +3,6 @@ import {
   isString
 } from './util'
 
-// 补丁类型
-var patchType = {
-  REPLACE: 0, // 替换元素
-  REORDER: 1, // 列表排序
-  PROPS: 2, // 变更属性
-  TEXT: 3 // 变更文本
-}
-
 function diff (oldTree, newTree) {
   var index = 0
   // 将两棵树所有的差异存放在 patches
@@ -29,7 +21,7 @@ function walk (oldNode, newNode, index, patches) {
     // TextNode content replacing
     if (newNode !== oldNode) {
       currentPatch.push({
-        type: patchType.TEXT,
+        type: 'TEXT',
         text: newNode
       })
     }
@@ -43,7 +35,7 @@ function walk (oldNode, newNode, index, patches) {
     var propsPatches = diffProps(oldNode, newNode)
     if (propsPatches) {
       currentPatch.push({
-        type: patchType.PROPS,
+        type: 'PROPS',
         props: propsPatches
       })
     }
@@ -58,7 +50,7 @@ function walk (oldNode, newNode, index, patches) {
     // Nodes are not the same, replace the old node with new node
   } else {
     currentPatch.push({
-      type: patchType.REPLACE,
+      type: 'REPLACE',
       node: newNode
     })
   }
@@ -76,7 +68,7 @@ function diffChildren (oldChildren, newChildren, index, patches, currentPatch) {
 
   if (diffs.moves.length) {
     var reorderPatch = {
-      type: patchType.REORDER,
+      type: 'ORDER',
       moves: diffs.moves
     }
     currentPatch.push(reorderPatch)

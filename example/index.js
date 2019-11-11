@@ -49,7 +49,13 @@ import { h, diff, patch, create } from '../src'
 var tree = h('div', { id: 'container' }, [
   h('h1', { style: 'color: blue' }, ['simple virtal dom']),
   h('p', ['Hello, virtual-dom']),
-  h('ul', [h('li', {key: 1}, ['li1']), h('li', {key: 2}, ['li2']), h('li', {key: 3}, ['li3']), h('li', {key: 4}, ['li4'])])
+  h('ul', [
+    h('li', { key: 'A' }, ['A']),
+    h('li', { key: 'B' }, ['B']),
+    h('li', { key: 'C' }, ['C']),
+    h('li', { key: 'D' }, ['D']),
+
+  ])
 ])
 
 var root = create(tree)
@@ -57,15 +63,17 @@ document.body.appendChild(root)
 
 setTimeout(() => {
   var newTree = h('div', { id: 'container' }, [
+
     h('h1', { style: 'color: red' }, ['simple virtal dom']),
     h('p', ['Hello, virtual-dom2']),
-    h('ul', [h('li', {key: 5}, ['li5']), h('li', {key: 2}, ['li2']), h('li', {key: 3}, ['li3']), h('li', {key: 4}, ['li4'])]),
     h('ul', [
-      h('li', {key: 2}, ['li2']),
-      h('li', {key: 4}, ['li4']),
-      h('li', {key: 1}, ['li1']),
-      h('li', {key: 3}, ['li3']),
-    ])
+      h('li', { key: 'D' }, ['D']),
+      h('li', { key: 'A' }, ['A']),
+      h('li', { key: 'B' }, ['B']),
+      h('li', { key: 'C' }, ['C']),
+      // h('li', { key: 'E' }, ['E']),
+    ]),
+    h('span', ['hanger']),
   ])
   var patches = diff(tree, newTree)
   console.log(patches)

@@ -14,6 +14,7 @@ module.exports = {
     'no-proto': 0,
     'new-cap': 0,
     'no-useless-call': 0,
-    'comma-dangle': 0
+    'comma-dangle': 0,
+    'space-before-function-paren': 0
   }
 }

@@ -5,7 +5,7 @@ import setAttr from './setAttr'
 import VNode from './vnode'
 import create from './create'
 
-function patch (node, patches) {
+function patch(node, patches) {
   var walker = {
     index: 0
   }
@@ -13,7 +13,7 @@ function patch (node, patches) {
   return node
 }
 
-function walk (node, walker, patches) {
+function walk(node, walker, patches) {
   var currentPatches = patches[walker.index]
 
   // 深度遍历子节点
@@ -37,27 +37,27 @@ function walk (node, walker, patches) {
  * @param {dom节点} node
  * @param {针对该dom节点的补丁} currentPatches
  */
-function applyPatches (node, currentPatches) {
+function applyPatches(node, currentPatches) {
   currentPatches.forEach(function (currentPatch) {
     switch (currentPatch.type) {
       // 替换元素
-      case 0:
+      case 'REPLACE':
         var newNode =
           currentPatch.node instanceof VNode ?
             create(currentPatch.node) :
             document.createTextNode(currentPatch.node)
         node.parentNode.replaceChild(newNode, node)
         break
-        // 列表排序
-      case 1:
+      // 列表排序
+      case 'ORDER':
         reorderChildren(node, currentPatch.moves)
         break
-        // 变更属性
-      case 2:
+      // 变更属性
+      case 'PROPS':
         setProps(node, currentPatch.props)
         break
-        // 变更文本
-      case 3:
+      // 变更文本
+      case 'TEXT':
         // 兼容低版本 IE，需要使用 nodeValue
         if (node.textContent) node.textContent = currentPatch.text
         else node.nodeValue = currentPatch.text
@@ -66,14 +66,14 @@ function applyPatches (node, currentPatches) {
   })
 }
 
-function setProps (node, props) {
+function setProps(node, props) {
   for (var key in props) {
     var value = props[key]
     setAttr(node, key, value)
   }
 }
 
-function reorderChildren (node, moves) {
+function reorderChildren(node, moves) {
   var staticNodeList = toArray(node.childNodes)
 
   var maps = {}
@@ -97,6 +97,7 @@ function reorderChildren (node, moves) {
       }
       staticNodeList.splice(index, 1)
     } else if (move.type === 1 && node.nodeType !== 3) {
+      // node.nodeType 为 3 时表示文本，不能进行元素操作，跳过处理
       // insert item
       var insertNode = maps[move.item.key] ?
         maps[move.item.key].cloneNode(true) : // 复用节点
