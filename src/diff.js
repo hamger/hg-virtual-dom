@@ -4,6 +4,7 @@ import {
 } from './util'
 
 function diff (oldTree, newTree) {
+  // index 表示每个节点的id（索引）
   var index = 0
   // 将两棵树所有的差异存放在 patches
   var patches = {}

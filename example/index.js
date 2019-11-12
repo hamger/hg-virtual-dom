@@ -63,7 +63,6 @@ document.body.appendChild(root)
 
 setTimeout(() => {
   var newTree = h('div', { id: 'container' }, [
-
     h('h1', { style: 'color: red' }, ['simple virtal dom']),
     h('p', ['Hello, virtual-dom2']),
     h('ul', [
